@@ -5,7 +5,7 @@
  * для использования в других слайсах приложения.
  */
 
-// UI компоненты
+// UI компоненты (импорт из ./ui/client)
 export { AnonymizeForm, AnonymizeErrorDisplay, LazyResultsList } from './ui/client';
 
 // Типы
