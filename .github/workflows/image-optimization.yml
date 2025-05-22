@@ -1,0 +1,95 @@
+name: Image Optimization Check
+
+on:
+  pull_request:
+    paths:
+      - '**/*.jpg'
+      - '**/*.jpeg'
+      - '**/*.png'
+      - '**/*.webp'
+      - '**/*.gif'
+      - '**/*.svg'
+
+jobs:
+  check-images:
+    name: Check Image Optimization
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get changed image files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            **/*.jpg
+            **/*.jpeg
+            **/*.png
+            **/*.webp
+            **/*.gif
+            **/*.svg
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install imagemin
+        run: npm install -g imagemin-cli imagemin-pngquant imagemin-mozjpeg imagemin-svgo
+
+      - name: Check image optimization
+        if: steps.changed-files.outputs.all_changed_files != ''
+        run: |
+          echo "Checking image optimization for changed files..."
+          mkdir -p .imagemin-temp
+
+          # Проходим по всем измененным файлам
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            # Проверяем, что файл существует и является изображением
+            if [[ -f "$file" && "$file" =~ \.(jpg|jpeg|png|webp|gif|svg)$ ]]; then
+              echo "Checking: $file"
+              
+              # Получаем размер исходного файла
+              original_size=$(wc -c < "$file")
+              
+              # Оптимизируем изображение во временную директорию
+              extension="${file##*.}"
+              filename=$(basename "$file")
+              
+              case $extension in
+                jpg|jpeg)
+                  imagemin "$file" --plugin=mozjpeg --out-dir=.imagemin-temp
+                  ;;
+                png)
+                  imagemin "$file" --plugin=pngquant --out-dir=.imagemin-temp
+                  ;;
+                svg)
+                  imagemin "$file" --plugin=svgo --out-dir=.imagemin-temp
+                  ;;
+                *)
+                  imagemin "$file" --out-dir=.imagemin-temp
+                  ;;
+              esac
+              
+              # Получаем размер оптимизированного файла
+              optimized_size=$(wc -c < ".imagemin-temp/$filename")
+              
+              # Вычисляем процент оптимизации
+              percent_saved=$(awk "BEGIN {print (($original_size-$optimized_size)/$original_size)*100}")
+              
+              # Если оптимизация может сэкономить больше 10%, предупреждаем
+              if (( $(echo "$percent_saved > 10" | bc -l) )); then
+                echo "::warning file=$file::Image can be optimized to save $(printf "%.2f" $percent_saved)% of size"
+              fi
+            fi
+          done
+
+          # Удаляем временную директорию
+          rm -rf .imagemin-temp

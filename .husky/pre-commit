@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Запуск линтера
+pnpm run lint
+
+# Расширенная проверка типов
+pnpm run type-check:full
+
+# Проверка импортов
+pnpm run check-imports
+
+# Проверка стилей
+pnpm run check-styles
+
+# Запуск тестов для измененных файлов
+pnpm run test:staged
+
+# Проверка на уязвимости в зависимостях
+pnpm audit --prod

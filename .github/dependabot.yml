@@ -1,0 +1,45 @@
+version: 2
+updates:
+  # Обновление npm пакетов
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    labels:
+      - 'dependencies'
+      - 'npm'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+    groups:
+      minor-dependencies:
+        patterns:
+          - '*'
+        update-types:
+          - 'minor'
+          - 'patch'
+      major-dependencies:
+        patterns:
+          - '*'
+        update-types:
+          - 'major'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+
+  # Обновление GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'wednesday'
+    open-pull-requests-limit: 5
+    labels:
+      - 'dependencies'
+      - 'github-actions'
+    commit-message:
+      prefix: 'ci'
+      include: 'scope'

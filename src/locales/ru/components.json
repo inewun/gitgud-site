@@ -1,0 +1,115 @@
+{
+  "pagination": {
+    "prev": "Предыдущая",
+    "next": "Следующая",
+    "page": "Страница",
+    "of": "из",
+    "total_items_one": "{count} элемент",
+    "total_items_few": "{count} элемента",
+    "total_items_many": "{count} элементов",
+    "total_items_other": "{count} элементов"
+  },
+  "form": {
+    "required": "Обязательное поле",
+    "optional": "Опционально",
+    "submit": "Отправить",
+    "reset": "Сбросить",
+    "loading": "Загрузка..."
+  },
+  "table": {
+    "empty": "Нет данных для отображения",
+    "loading": "Загрузка данных...",
+    "search": "Поиск",
+    "rows_per_page": "Строк на странице",
+    "selected_one": "Выбран {count} элемент",
+    "selected_few": "Выбрано {count} элемента",
+    "selected_many": "Выбрано {count} элементов",
+    "selected_other": "Выбрано {count} элементов"
+  },
+  "fileUpload": {
+    "drag": "Перетащите файлы сюда или",
+    "browse": "выберите файлы",
+    "maxSize": "Максимальный размер: {size}",
+    "files_one": "{count} файл",
+    "files_few": "{count} файла",
+    "files_many": "{count} файлов",
+    "files_other": "{count} файлов",
+    "remove": "Удалить"
+  },
+  "rating": {
+    "rate": "Оценить",
+    "ratings_one": "{count} оценка",
+    "ratings_few": "{count} оценки",
+    "ratings_many": "{count} оценок",
+    "ratings_other": "{count} оценок"
+  },
+  "comments": {
+    "title": "Комментарии",
+    "write": "Написать комментарий",
+    "submit": "Отправить",
+    "cancel": "Отмена",
+    "placeholder": "Ваш комментарий...",
+    "reply": "Ответить",
+    "total_one": "{count} комментарий",
+    "total_few": "{count} комментария",
+    "total_many": "{count} комментариев",
+    "total_other": "{count} комментариев",
+    "empty": "Нет комментариев"
+  },
+  "notifications": {
+    "success": "Успешно",
+    "error": "Ошибка",
+    "info": "Информация",
+    "warning": "Предупреждение",
+    "new_one": "{count} новое уведомление",
+    "new_few": "{count} новых уведомления",
+    "new_many": "{count} новых уведомлений",
+    "new_other": "{count} новых уведомлений",
+    "no_new": "Нет новых уведомлений"
+  },
+  "anonymize": {
+    "form": {
+      "inputLabel": "Исходный текст",
+      "inputPlaceholder": "Введите текст для анонимизации...",
+      "submitButton": "Анонимизировать",
+      "processing": "Обработка...",
+      "resetButton": "Сбросить",
+      "resultTitle": "Результат",
+      "resultPlaceholder": "Здесь появится анонимизированный текст",
+      "copyButton": "Копировать",
+      "downloadButton": "Скачать"
+    },
+    "options": {
+      "replaceNames": "Заменять имена",
+      "replaceEmails": "Заменять email-адреса",
+      "replacePhones": "Заменять номера телефонов",
+      "replaceDates": "Заменять даты",
+      "replaceAddresses": "Заменять адреса",
+      "replaceIPs": "Заменять IP-адреса"
+    },
+    "validation": {
+      "required": "Текст не может быть пустым",
+      "tooShort": "Текст должен содержать минимум {min} символов",
+      "tooLong": "Текст не должен превышать {max} символов",
+      "onlySpaces": "Текст не может состоять только из пробельных символов"
+    },
+    "status": {
+      "success": "Текст успешно анонимизирован",
+      "copied": "Результат скопирован в буфер обмена",
+      "downloaded": "Файл успешно сохранен",
+      "error": "Произошла ошибка: {message}"
+    }
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "success": "Успешно",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "confirm": "Подтвердить",
+    "yes": "Да",
+    "no": "Нет"
+  }
+}

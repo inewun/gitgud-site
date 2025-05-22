@@ -1,0 +1,47 @@
+{
+  "anonymize": {
+    "form": {
+      "inputLabel": "Original text",
+      "inputPlaceholder": "Enter text for anonymization...",
+      "submitButton": "Anonymize",
+      "processing": "Processing...",
+      "resetButton": "Reset",
+      "resultTitle": "Result",
+      "resultPlaceholder": "Anonymized text will appear here",
+      "copyButton": "Copy",
+      "downloadButton": "Download"
+    },
+    "options": {
+      "replaceNames": "Replace names",
+      "replaceEmails": "Replace email addresses",
+      "replacePhones": "Replace phone numbers",
+      "replaceDates": "Replace dates",
+      "replaceAddresses": "Replace addresses",
+      "replaceIPs": "Replace IP addresses"
+    },
+    "validation": {
+      "required": "Text cannot be empty",
+      "tooShort": "Text must contain at least {min} characters",
+      "tooLong": "Text must not exceed {max} characters",
+      "onlySpaces": "Text cannot consist only of whitespace characters"
+    },
+    "status": {
+      "success": "Text successfully anonymized",
+      "copied": "Result copied to clipboard",
+      "downloaded": "File successfully saved",
+      "error": "An error occurred: {message}"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  }
+}

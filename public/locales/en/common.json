@@ -1,0 +1,30 @@
+{
+  "app": {
+    "title": "Anonymize Tool",
+    "description": "Text data anonymization tool"
+  },
+  "theme": {
+    "toggle_dark": "Switch to dark theme",
+    "toggle_light": "Switch to light theme"
+  },
+  "nav": {
+    "home": "Home",
+    "anonymize": "Anonymize",
+    "docs": "Documentation",
+    "about": "About"
+  },
+  "anonymize": {
+    "title": "Text Anonymization",
+    "description": "Enter text for processing and anonymization",
+    "input_label": "Your text",
+    "input_placeholder": "Enter text to anonymize...",
+    "output_label": "Result",
+    "button": "Anonymize",
+    "processing": "Processing...",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "footer": {
+    "copyright": "© 2025 Anonymize Tool. All rights reserved."
+  }
+}

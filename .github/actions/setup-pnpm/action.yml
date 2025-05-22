@@ -1,0 +1,46 @@
+name: 'Setup PNPM'
+description: 'Устанавливает Node.js и PNPM с оптимизированным кэшированием'
+
+inputs:
+  node-version:
+    description: 'Версия Node.js для установки'
+    required: false
+    default: '20.x'
+
+  pnpm-version:
+    description: 'Версия PNPM для установки'
+    required: false
+    default: '8'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Use Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v4.0.2
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'npm'
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v3.0.0
+      with:
+        version: ${{ inputs.pnpm-version }}
+        run_install: false
+
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - name: Setup pnpm cache
+      uses: actions/cache@v4.0.1
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install

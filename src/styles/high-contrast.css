@@ -1,0 +1,188 @@
+/* Стили для высокого контраста */
+
+/* Применяем стили только когда пользователь предпочитает высокий контраст */
+@media (prefers-contrast: more) {
+  /* Глобальные стили */
+  :root {
+    /* Увеличиваем контрастность основных цветов */
+    --text-base: #000000;
+    --background: #ffffff;
+    --primary: #0000cc;
+    --primary-hover: #0000ff;
+    --secondary: #cc0000;
+    --secondary-hover: #ff0000;
+    --border: #000000;
+
+    /* Увеличиваем толщину границ */
+    --border-width-thin: 2px;
+    --border-width-normal: 3px;
+    --border-width-thick: 4px;
+  }
+
+  /* Убираем фоновые узоры и градиенты */
+  .bg-dot-pattern-light,
+  .bg-dot-pattern-dark,
+  .dot-pattern,
+  .background-gradient,
+  .bg-gradient-to-r,
+  .bg-gradient-to-l {
+    background-image: none !important;
+    background-color: var(--background) !important;
+  }
+
+  /* Увеличиваем контраст для текста */
+  body {
+    background-color: var(--background);
+    color: var(--text-base);
+  }
+
+  /* Увеличиваем четкость границ */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    border: var(--border-width-normal) solid var(--border) !important;
+    outline: var(--border-width-thin) solid var(--border) !important;
+    outline-offset: 2px;
+  }
+
+  /* Улучшаем видимость фокуса */
+  *:focus {
+    outline: 3px solid #0000ff !important;
+    outline-offset: 3px !important;
+  }
+
+  /* Увеличиваем контраст для кнопок */
+  button,
+  .btn,
+  [role='button'] {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    font-weight: bold !important;
+  }
+
+  /* Стиль для основных кнопок */
+  button.primary,
+  .btn-primary,
+  [role='button'].primary {
+    background-color: #0000cc !important;
+    color: #ffffff !important;
+    border: 2px solid #000000 !important;
+  }
+
+  /* Повышаем контраст для ссылок */
+  a,
+  .link {
+    color: #0000cc !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px !important;
+    text-decoration-thickness: 2px !important;
+  }
+
+  /* Улучшаем читаемость для заголовков */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #000000 !important;
+    font-weight: bold !important;
+  }
+
+  /* Улучшаем видимость изображений */
+  img,
+  svg {
+    border: 1px solid #000000 !important;
+  }
+
+  /* Обеспечиваем видимость форм */
+  input,
+  select,
+  textarea {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+  }
+
+  /* Повышаем видимость меток */
+  label {
+    color: #000000 !important;
+    font-weight: bold !important;
+  }
+
+  /* Улучшаем контраст в таблицах */
+  table,
+  th,
+  td {
+    border: 2px solid #000000 !important;
+  }
+
+  th {
+    background-color: #dddddd !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+  }
+
+  /* Улучшаем видимость списков */
+  ul,
+  ol {
+    margin-left: 2rem !important;
+  }
+
+  li {
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Улучшаем контраст для предупреждений и ошибок */
+  .alert,
+  .warning,
+  .error,
+  .notice {
+    border: 3px solid #000000 !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+    padding: 1rem !important;
+  }
+
+  .error,
+  .danger {
+    border-color: #cc0000 !important;
+  }
+
+  .warning {
+    border-color: #cc6600 !important;
+  }
+
+  .success {
+    border-color: #006600 !important;
+  }
+
+  /* Улучшаем контраст карточек */
+  .card,
+  [class*='card'] {
+    border: 2px solid #000000 !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Адаптируем навигацию */
+  nav,
+  header,
+  footer {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+  }
+
+  /* Стиль для активного элемента навигации */
+  nav a.active,
+  nav .active {
+    background-color: #0000cc !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+  }
+}

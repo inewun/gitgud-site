@@ -1,0 +1,871 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './tokens.css';
+@import './focus.css';
+@import './critical.css';
+@import './high-contrast.css';
+@import './theme-transition.css';
+@import './mobile-text.css';
+
+@layer base {
+
+  /* Базовые стили для всего приложения */
+  html {
+    font-family: 'Inter', 'Manrope', 'Segoe UI', Arial, sans-serif;
+    background: rgb(var(--background));
+    color: rgb(var(--foreground));
+    letter-spacing: -0.015em;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100vh;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  /* Явное указание стилей для тёмной темы */
+  .dark,
+  [data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  .dark body,
+  [data-theme='dark'] body {
+    background: rgb(15, 23, 42);
+    color: rgb(241, 245, 249);
+  }
+
+  .dark img,
+  [data-theme='dark'] img {
+    filter: brightness(0.9) contrast(1.05);
+  }
+
+  .dark .card,
+  [data-theme='dark'] .card {
+    background: rgb(30, 41, 59);
+    color: rgb(241, 245, 249);
+    border-color: rgb(51, 65, 85);
+  }
+
+  .dark input,
+  .dark textarea,
+  .dark select,
+  [data-theme='dark'] input,
+  [data-theme='dark'] textarea,
+  [data-theme='dark'] select {
+    background-color: rgb(var(--input));
+    color: rgb(var(--input-foreground));
+    border-color: rgb(var(--border));
+  }
+
+  .dark button,
+  [data-theme='dark'] button {
+    color: inherit;
+  }
+
+  /* Минималистичные улучшенные отступы и заголовки */
+  h1 {
+    font-size: clamp(2.1rem, 4vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin: 0 auto 1rem auto;
+    text-wrap: balance;
+    max-width: 820px;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0 auto 0.8rem auto;
+    max-width: 750px;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin: 0 auto 0.5rem auto;
+    max-width: 650px;
+  }
+
+  p {
+    @apply leading-relaxed;
+    font-size: 1rem;
+    color: rgb(var(--muted-foreground));
+    margin: 0 auto 0.9em auto;
+    max-width: 650px;
+  }
+
+  /* Минималистичные ссылки 2025 */
+  a {
+    color: rgb(var(--primary));
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: rgb(var(--primary-hover));
+  }
+
+  a:not(.no-underline):after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+    opacity: 0.7;
+  }
+
+  a:not(.no-underline):hover:after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Улучшаем ARIA-навигацию */
+  [tabindex]:not([tabindex='-1']):focus-visible {
+    @apply outline-none;
+    box-shadow: 0 0 0 2px rgba(var(--focus-shadow), 0.4);
+    outline: 2px solid rgb(var(--focus-ring));
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* Современный скролл-бар 2025 */
+  ::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-subtle/60 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted/30 rounded-full hover:bg-muted/50;
+    transition: background-color 0.2s var(--ease-out);
+  }
+
+  /* Улучшенный блок кода */
+  pre,
+  code {
+    @apply bg-subtle dark:bg-subtle text-foreground rounded-md p-1 font-mono text-sm;
+  }
+
+  pre {
+    @apply p-4 overflow-x-auto;
+  }
+
+  /* Адаптивные стили для мобильных устройств */
+  @media (max-width: 640px) {
+    .container {
+      @apply px-4;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 8vw, 2.75rem);
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+  }
+
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 72rem;
+    /* 1152px, соответствует max-w-6xl */
+  }
+
+  /* Сетка для основных секций */
+  section {
+    @apply w-full px-4 sm:px-6 lg:px-8;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Адаптивные paddings для header/footer */
+  header,
+  footer {
+    @apply px-4 sm:px-6 lg:px-8;
+    max-width: 100vw;
+  }
+
+  :root {
+    --background: 250 251 252;
+    --foreground: 23 23 23;
+    --card: 255 255 255;
+    --card-foreground: 23 23 23;
+    --primary: 34 82 255;
+    --primary-foreground: 255 255 255;
+    --secondary: 243 244 246;
+    --secondary-foreground: 23 23 23;
+    --muted: 107 114 128;
+    --muted-foreground: 113 113 122;
+    --accent: 243 244 246;
+    --accent-foreground: 23 23 23;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 229 231 235;
+    --input: 255 255 255;
+    --input-border: 229 231 235;
+    --ring: 34 82 255;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius: 0.5rem;
+  }
+
+  .dark,
+  [data-theme='dark'] {
+    --background: 17 18 23;
+    --foreground: 250 251 252;
+    --card: 26 28 35;
+    --card-foreground: 244 245 246;
+    --primary: 59 130 246;
+    --primary-foreground: 255 255 255;
+    --secondary: 26 28 35;
+    --secondary-foreground: 250 251 252;
+    --muted: 156 163 175;
+    --muted-foreground: 161 161 170;
+    --accent: 26 28 35;
+    --accent-foreground: 250 251 252;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 38 41 51;
+    --input: 26 28 35;
+    --input-border: 38 41 51;
+    --ring: 59 130 246;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius: 0.5rem;
+  }
+}
+
+@layer components {
+  .button-secondary {
+    @apply bg-background text-primary border border-primary font-medium rounded-md px-4 py-2 inline-flex items-center justify-center;
+    transition: var(--transition-button);
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+/* Карточки 2025 */
+.card {
+  @apply bg-card text-card-foreground border border-border rounded-lg p-6;
+  transition: transform 0.3s var(--soft-spring), border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  padding: 24px;
+}
+
+.card:hover {
+  @apply border-muted shadow-sm;
+  transform: translateY(-2px);
+}
+
+.dark .card:hover {
+  @apply border-muted/40 shadow-none;
+  box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.2);
+}
+
+/* Приподнятые карточки 2025 */
+.card-elevated {
+  @apply bg-card text-card-foreground rounded-2xl p-7 border border-border/60;
+  box-shadow: 0 1.5px 8px 0 rgba(34, 82, 255, 0.04), 0 0.5px 1.5px 0 rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.32s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.22s, transform 0.22s;
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+}
+
+.card-elevated:hover,
+.card-elevated:focus-within {
+  box-shadow: 0 8px 32px 0 rgba(34, 82, 255, 0.10), 0 2px 8px 0 rgba(0, 0, 0, 0.07);
+  border-color: rgb(var(--primary) / 0.18);
+  transform: scale(1.025);
+  z-index: 2;
+}
+
+@media (max-width: 640px) {
+
+  .card-elevated:hover,
+  .card-elevated:focus-within {
+    box-shadow: 0 2px 8px 0 rgba(34, 82, 255, 0.07);
+    transform: none;
+  }
+
+  .card,
+  .card-elevated,
+  .feature-card {
+    padding: 16px;
+  }
+}
+
+.dark .card-elevated {
+  @apply border-border/20 bg-card;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 4px 12px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* Современные кнопки 2025 */
+.button-primary {
+  @apply bg-primary text-white font-medium rounded-md px-4 py-2 inline-flex items-center justify-center;
+  transition: var(--transition-button);
+  position: relative;
+  overflow: hidden;
+}
+
+.button-primary::after {
+  content: none !important;
+  background-image: none !important;
+  background: none !important;
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+.button-primary:hover,
+.button-primary:focus-visible {
+  background-color: rgb(var(--primary-hover));
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 12px 0 rgba(var(--primary), 0.10);
+}
+
+.button-primary:active {
+  transform: translateY(0);
+}
+
+.button-secondary {
+  @apply bg-background text-primary border border-primary font-medium rounded-md px-4 py-2 inline-flex items-center justify-center;
+  transition: var(--transition-button);
+  position: relative;
+  overflow: hidden;
+}
+
+.button-secondary::after {
+  content: none !important;
+  background-image: none !important;
+  background: none !important;
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+.button-secondary:hover,
+.button-secondary:focus-visible {
+  background-color: rgb(var(--primary));
+  color: #fff;
+  border-color: rgb(var(--primary));
+  box-shadow: 0 2px 12px 0 rgba(var(--primary), 0.10);
+}
+
+.button-secondary:active {
+  transform: translateY(0);
+}
+
+.button-tertiary {
+  @apply bg-transparent border border-border text-foreground rounded-md px-4 py-2 font-medium;
+  transition: all 0.2s ease;
+}
+
+.button-ghost {
+  @apply bg-transparent text-foreground hover:text-primary rounded-md px-4 py-2 font-medium;
+  transition: all 0.2s ease;
+}
+
+.icon-left {
+  @apply -ml-1 mr-1.5;
+}
+
+.icon-right {
+  @apply -mr-1 ml-1.5;
+}
+
+/* Контейнеры */
+.container-tight {
+  @apply max-w-3xl mx-auto px-4 sm:px-6;
+}
+
+.container-narrow {
+  @apply max-w-2xl mx-auto px-4 sm:px-6;
+}
+
+/* Карточки функций */
+.feature-card {
+  @apply card-elevated h-full transition-all duration-200 ease-in-out;
+  padding: 24px;
+}
+
+.feature-icon {
+  @apply bg-primary/10 text-primary p-3 rounded-md w-fit;
+}
+
+.dark .feature-card {
+  @apply bg-card border-border/20;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 4px 12px -2px rgba(0, 0, 0, 0.25);
+}
+
+.dark .feature-icon {
+  @apply bg-primary/20 text-primary;
+}
+
+/* Паттерн фона в точку */
+.bg-dot-pattern-light {
+  background-image: radial-gradient(rgb(226 232 240 / 0.7) 1px, transparent 1px);
+  background-size: 20px 20px;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-dot-pattern-dark {
+  background-image: radial-gradient(rgb(51 65 85 / 0.4) 1px, transparent 1px);
+  background-size: 20px 20px;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-dot-pattern-primary {
+  background-image: radial-gradient(rgb(var(--primary) / 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Анимированный переход */
+.transition-spring {
+  transition: var(--spring-transition);
+}
+
+/* Блокировка анимаций во время загрузки темы */
+.theme-init,
+.theme-init *,
+.theme-init *::before,
+.theme-init *::after {
+  transition: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  *[class*='animate-'] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  .fadeIn,
+  .fadeOut,
+  .slideIn,
+  .slideOut,
+  .scaleIn,
+  .scaleOut,
+  .pulse,
+  .float {
+    animation: none !important;
+  }
+
+  .button-primary:hover,
+  .button-secondary:hover,
+  .card-elevated:hover {
+    transform: none !important;
+  }
+}
+
+/* Настройки размера шрифта для доступности */
+.font-size-default {
+  --font-size-dynamic-base: 1rem;
+  --line-height-default: 1.6;
+  font-size: var(--font-size-dynamic-base);
+  line-height: var(--line-height-default);
+}
+
+.font-size-large {
+  --font-size-dynamic-base: 1.125rem;
+  --line-height-default: 1.7;
+  font-size: var(--font-size-dynamic-base);
+  line-height: var(--line-height-default);
+}
+
+.font-size-larger {
+  --font-size-dynamic-base: 1.25rem;
+  --line-height-default: 1.8;
+  font-size: var(--font-size-dynamic-base);
+  line-height: var(--line-height-default);
+}
+
+.text-spacing-default {
+  --letter-spacing-base: 0;
+  --word-spacing-base: 0;
+  letter-spacing: var(--letter-spacing-base);
+  word-spacing: var(--word-spacing-base);
+}
+
+.text-spacing-wide {
+  --letter-spacing-base: 0.01em;
+  --word-spacing-base: 0.05em;
+  letter-spacing: var(--letter-spacing-base);
+  word-spacing: var(--word-spacing-base);
+}
+
+.text-spacing-wider {
+  --letter-spacing-base: 0.02em;
+  --word-spacing-base: 0.1em;
+  letter-spacing: var(--letter-spacing-base);
+  word-spacing: var(--word-spacing-base);
+}
+
+/* Поддержка режима prefers-reduced-data для экономии энергии */
+@media (prefers-reduced-data: reduce) {
+
+  /* Оптимизации для экономии энергии */
+  :root {
+    /* Более экономичные цвета для светлой темы */
+    --background-primary: #ffffff;
+    --text-primary: #121212;
+    --shadow-strength: 5%;
+    --animation-duration: 0;
+  }
+
+  /* Оптимизации для темной темы */
+  :root[data-theme='dark'] {
+    /* Более глубокий темный цвет для экономии энергии на OLED экранах */
+    --background-primary: #000000;
+    --text-primary: #e0e0e0;
+    --text-secondary: #aeaeae;
+    --shadow-strength: 0%;
+    /* Отключаем анимации для экономии ресурсов */
+    --animation-duration: 0;
+  }
+
+  /* Отключаем все анимации */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
+
+  /* Убираем тени и градиенты для экономии ресурсов */
+  [class*='shadow'],
+  [class*='gradient'] {
+    box-shadow: none !important;
+    background-image: none !important;
+  }
+
+  /* Упрощенные иконки */
+  svg {
+    stroke-width: 1px !important;
+  }
+
+  /* Уменьшенное качество изображений */
+  img,
+  svg,
+  video {
+    filter: none !important;
+  }
+}
+
+/* Стили для высокого контраста */
+@media (prefers-contrast: more) {
+  body {
+    line-height: 1.7;
+  }
+
+  button,
+  .button {
+    border-width: 2px !important;
+  }
+
+  input,
+  textarea,
+  select {
+    border-width: 2px !important;
+  }
+
+  img {
+    filter: contrast(1.1);
+  }
+}
+
+/* Класс для принудительного режима высокого контраста */
+.high-contrast {
+  line-height: 1.7;
+}
+
+.high-contrast button,
+.high-contrast .button {
+  border-width: 2px !important;
+}
+
+.high-contrast input,
+.high-contrast textarea,
+.high-contrast select {
+  border-width: 2px !important;
+}
+
+.high-contrast img {
+  filter: contrast(1.1);
+}
+
+/* Дополнительные стили для компонентов в темной теме */
+.bg-[#f59e0b] a {
+  color: #111 !important;
+}
+
+/* Убираем лишние тени и анимации */
+.shadow-lg,
+.shadow-xl,
+.shadow-2xl {
+  box-shadow: none !important;
+}
+
+/* Сетка для карточек */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .feature-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+select,
+textarea {
+  @apply rounded-md border border-input bg-background px-4 py-2 text-sm transition-all duration-200;
+  box-shadow: none;
+  outline: none;
+  color: rgb(var(--foreground));
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  border-color: rgb(var(--primary));
+  box-shadow: 0 0 0 2px rgba(var(--primary), 0.15);
+  outline: none;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input[type="checkbox"] {
+  @apply h-4 w-4 rounded border-input text-primary transition-all duration-200 focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  outline: none;
+}
+
+input[type="checkbox"]:focus,
+input[type="checkbox"]:focus-visible {
+  border-color: rgb(var(--primary));
+  box-shadow: 0 0 0 2px rgba(var(--primary), 0.15);
+}
+
+input[type="checkbox"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Современная анимация для всех интерактивных иконок */
+.icon-animated {
+  /* Универсальный transition для stroke, fill, color, transform, box-shadow */
+  transition:
+    stroke 0.34s cubic-bezier(0.19, 1, 0.22, 1) 0.04s,
+    fill 0.34s cubic-bezier(0.19, 1, 0.22, 1) 0.04s,
+    color 0.34s cubic-bezier(0.19, 1, 0.22, 1) 0.04s,
+    box-shadow 0.34s cubic-bezier(0.19, 1, 0.22, 1) 0.04s,
+    transform 0.34s cubic-bezier(0.19, 1, 0.22, 1) 0.04s;
+}
+
+.icon-animated:hover,
+.icon-animated:focus-visible {
+  /* Меняем только stroke и color — без заливки! */
+  stroke: rgb(var(--primary));
+  color: rgb(var(--primary));
+}
+
+/* Для svg-иконок — glow и transform */
+svg.icon-animated:hover,
+svg.icon-animated:focus-visible {
+  box-shadow: 0 2px 16px 0 rgba(var(--primary), 0.13), 0 0 0 2px rgba(var(--primary), 0.10);
+  /* Если иконка крупная — glow сильнее */
+}
+
+svg.icon-animated {
+  cursor: pointer;
+}
+
+/* Адаптивный transform: если иконка внутри кнопки или ссылки — scale+translateY, иначе только scale */
+.icon-animated:where(:not(svg)) {
+  /* Обычно inline-иконки в кнопках/ссылках */
+}
+
+.icon-animated:hover,
+.icon-animated:focus-visible {
+  transform: scale(1.07) translateY(-2px);
+}
+
+svg.icon-animated:hover,
+svg.icon-animated:focus-visible {
+  transform: scale(1.09);
+}
+
+/* Для крупных svg glow чуть сильнее */
+svg.icon-animated[size],
+svg.icon-animated[width],
+svg.icon-animated[height] {
+  /* Если размер >= 32px — glow ярче */
+  /* Это работает только если явно задан width/height/size */
+  box-shadow: 0 4px 24px 0 rgba(var(--primary), 0.18), 0 0 0 3px rgba(var(--primary), 0.13);
+}
+
+/* Доступность: отключаем transform и тени при reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+  .icon-animated,
+  .icon-animated:hover,
+  .icon-animated:focus-visible,
+  svg.icon-animated,
+  svg.icon-animated:hover,
+  svg.icon-animated:focus-visible {
+    transition: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Контрастные иконки внутри кнопок при hover/focus */
+.button-primary:hover .icon-animated,
+.button-primary:focus-visible .icon-animated,
+.button-secondary:hover .icon-animated,
+.button-secondary:focus-visible .icon-animated {
+  stroke: #fff !important;
+  color: #fff !important;
+}

@@ -1,0 +1,89 @@
+name: Dependencies Check
+
+on:
+  schedule:
+    - cron: '0 0 * * 1' # Каждый понедельник в 00:00 UTC
+  workflow_dispatch: # Позволяет запускать вручную
+
+jobs:
+  dependencies-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Setup PNPM Environment
+        uses: ./.github/actions/setup-pnpm
+        with:
+          node-version: '20.x'
+          pnpm-version: '8'
+
+      - name: Check for outdated dependencies
+        id: outdated
+        run: |
+          echo "# Устаревшие зависимости" > outdated-deps.md
+          echo "## Основные зависимости" >> outdated-deps.md
+          echo '```' >> outdated-deps.md
+          pnpm outdated | tee -a outdated-deps.md || true
+          echo '```' >> outdated-deps.md
+
+          echo "## Проверка на уязвимости" >> outdated-deps.md
+          echo '```' >> outdated-deps.md
+          pnpm audit | tee -a outdated-deps.md || true
+          echo '```' >> outdated-deps.md
+
+      - name: Create issue if outdated dependencies found
+        if: success()
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: Outdated Dependencies Report
+          content-filepath: ./outdated-deps.md
+          labels: dependencies, maintenance
+          assignees: |
+            maintainers
+
+      - name: Run npm-check-updates
+        run: |
+          pnpm add -g npm-check-updates
+          echo "# Предлагаемые обновления" > update-deps.md
+          echo '```' >> update-deps.md
+          ncu | tee -a update-deps.md
+          echo '```' >> update-deps.md
+
+      - name: Create PR for dependency updates
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          # Создаем новую ветку
+          git checkout -b dependencies/update-$(date +%Y-%m-%d)
+
+          # Обновляем minor и patch обновления
+          ncu -u --target minor
+
+          # Проверяем есть ли изменения
+          if [[ -z $(git status -s) ]]; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          # Устанавливаем обновленные зависимости
+          pnpm install
+
+          # Коммитим изменения
+          git add package.json pnpm-lock.yaml
+          git commit -m "chore: update dependencies (automated)"
+
+          # Пушим изменения
+          git push -u origin dependencies/update-$(date +%Y-%m-%d)
+
+          # Создаем PR
+          gh pr create --title "chore: update dependencies (automated)" \
+            --body "This PR was automatically created by the dependency update workflow." \
+            --label "dependencies" \
+            --label "automated" \
+            --base main \
+            --head dependencies/update-$(date +%Y-%m-%d)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

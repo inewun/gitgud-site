@@ -1,0 +1,19 @@
+import { render, screen } from '@/testing-library/react';
+import {{pascalCase name}} from '@/components/{{pascalCase name}}';
+
+describe('{{pascalCase name}}', () => {
+  it('должен корректно рендериться с дефолтными пропсами', () => {
+    render(<{{pascalCase name}}>Тестовый текст</{{pascalCase name}}>);
+    
+    expect(screen.getByText('Тестовый текст')).toBeInTheDocument();
+  });
+
+  it('должен применять пользовательский класс', () => {
+    const { container } = render(
+      <{{pascalCase name}} className="test-class">Тестовый текст</{{pascalCase name}}>
+    );
+    
+    const element = container.firstChild as HTMLElement;
+    expect(element).toHaveClass('test-class');
+  });
+}); 

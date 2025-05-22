@@ -1,0 +1,23 @@
+# robots.txt для оптимизации SEO
+User-agent: *
+Allow: /
+
+# Специфические правила для ботов
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+# Запретить доступ к определенным директориям
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+
+# Карта сайта
+Sitemap: https://example.com/sitemap.xml 

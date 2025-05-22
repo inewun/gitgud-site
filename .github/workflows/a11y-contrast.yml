@@ -1,0 +1,55 @@
+name: Accessibility Color Contrast Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  color-contrast:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Setup PNPM Environment
+        uses: ./.github/actions/setup-pnpm
+        with:
+          node-version: '20.x'
+          pnpm-version: '8'
+
+      # Запускаем оба теста контраста: Jest и Playwright
+      - name: Run jest color contrast tests
+        run: pnpm test src/__tests__/color-contrast.test.tsx
+
+      # Запускаем также интеграционные тесты контраста
+      - name: Build
+        run: pnpm build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run e2e color contrast tests
+        run: npx playwright test e2e/color-contrast.spec.ts
+
+      - name: Generate contrast report
+        if: always()
+        run: |
+          echo "## Результаты проверки контраста цветов" > contrast-report.md
+          echo "### Статический анализ (Jest)" >> contrast-report.md
+          echo "\`\`\`" >> contrast-report.md
+          cat jest-results.txt >> contrast-report.md || echo "Нет данных от статических тестов" >> contrast-report.md
+          echo "\`\`\`" >> contrast-report.md
+          echo "### Интеграционное тестирование (Playwright)" >> contrast-report.md
+          echo "Подробности в артефактах сборки" >> contrast-report.md
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: color-contrast-results
+          path: |
+            playwright-report/
+            contrast-report.md
+          retention-days: 30

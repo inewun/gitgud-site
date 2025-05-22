@@ -1,0 +1,120 @@
+/**
+ * Файл стилей для улучшения фокусных состояний интерактивных элементов
+ * Это важно для доступности с клавиатуры
+ */
+
+/* Базовые стили фокуса для улучшения доступности */
+:root {
+  --focus-ring-color: rgba(var(--primary), 0.5);
+  --focus-ring-style: solid;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+}
+
+/* Стили для темной темы */
+.dark,
+[data-theme='dark'] {
+  --focus-ring-color: rgba(var(--primary), 0.7);
+}
+
+/* Стили фокуса по умолчанию */
+*:focus-visible {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Стили для фокуса кнопок */
+button:focus-visible,
+[role='button']:focus-visible,
+.button:focus-visible {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  box-shadow: 0 0 0 var(--focus-ring-offset) rgba(var(--primary), 0.2);
+}
+
+/* Стили для фокуса текстовых полей */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  box-shadow: 0 0 0 var(--focus-ring-offset) rgba(var(--primary), 0.2);
+}
+
+/* Стили для фокуса чекбоксов и радиокнопок */
+input[type='checkbox']:focus-visible,
+input[type='radio']:focus-visible,
+input[type='checkbox'] + label:has(+ :focus-visible),
+input[type='radio'] + label:has(+ :focus-visible) {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: max(2px, 0.15em);
+}
+
+/* Стили для фокуса ссылок */
+a:focus-visible {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  text-decoration: underline;
+}
+
+/* Стили для фокуса панелей навигации */
+nav a:focus-visible,
+[role='navigation'] a:focus-visible {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Стили для фокуса элементов, которые обычно не имеют видимого фокуса */
+[tabindex]:focus-visible:not(input, button, textarea, select, a),
+[role='tab']:focus-visible,
+[role='menuitem']:focus-visible {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  box-shadow: 0 0 0 var(--focus-ring-offset) rgba(var(--primary), 0.2);
+}
+
+/* Стили для элементов, которые не должны иметь видимого фокуса */
+[tabindex='-1']:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Особый фокус для карточек и других интерактивных компонентов */
+.card:focus-visible,
+.interactive-item:focus-visible {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  transform: translateY(-2px);
+  transition:
+    outline-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+/* Стили для высококонтрастного режима (для пользователей с нарушениями зрения) */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid CanvasText;
+    outline-offset: 3px;
+  }
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+  :focus-visible {
+    outline-width: 3px;
+    /* Увеличиваем толщину обводки для удобства на мобильных */
+    outline-offset: 3px;
+  }
+}
+
+/* Улучшенные стили для нажатия клавиш */
+.keyboard-user *:focus {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color) !important;
+  outline-offset: var(--focus-ring-offset) !important;
+}
+
+/* Отключаем аутлайны только при использовании мыши */
+.mouse-user *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}

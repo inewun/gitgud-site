@@ -1,0 +1,35 @@
+{
+  "rules": {
+    "import/no-deprecated-paths": [
+      "error",
+      {
+        "mappings": [
+          {
+            "pattern": "src/shared/ui/button/*",
+            "message": "Используйте новый путь импорта: src/shared/ui/inputs/button/*"
+          },
+          {
+            "pattern": "src/shared/ui/card/*",
+            "message": "Используйте новый путь импорта: src/shared/ui/layout/card/*"
+          },
+          {
+            "pattern": "src/shared/ui/inputs/Checkbox",
+            "message": "Используйте новый путь импорта: src/shared/ui/inputs/checkbox/Checkbox"
+          },
+          {
+            "pattern": "src/shared/ui/inputs/Select",
+            "message": "Используйте новый путь импорта: src/shared/ui/inputs/select/Select"
+          },
+          {
+            "pattern": "src/shared/ui/inputs/TextInputField",
+            "message": "Используйте новый путь импорта: src/shared/ui/inputs/text-field/TextInputField"
+          },
+          {
+            "pattern": "src/shared/ui/inputs/TextareaField",
+            "message": "Используйте новый путь импорта: src/shared/ui/inputs/textarea/TextareaField"
+          }
+        ]
+      }
+    ]
+  }
+}

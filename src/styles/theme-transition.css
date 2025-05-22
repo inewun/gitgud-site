@@ -1,0 +1,168 @@
+/**
+ * Стили для плавного перехода между темами
+ * Модернизировано для 2025 года
+ */
+
+/* Добавляем переменные времени, если они не определены в других файлах */
+:root {
+  --duration-fast: 0.15s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.5s;
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --soft-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Основной переход для всех элементов с цветом */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *:before,
+html.theme-transition *:after {
+  transition:
+    background-color var(--duration-normal) var(--ease-in-out),
+    border-color var(--duration-normal) var(--ease-in-out),
+    color var(--duration-normal) var(--ease-in-out),
+    fill var(--duration-normal) var(--ease-in-out),
+    stroke var(--duration-normal) var(--ease-in-out),
+    box-shadow var(--duration-normal) var(--ease-in-out) !important;
+  transition-delay: 0 !important;
+}
+
+/* Специальные переходы для определенных компонентов */
+html.theme-transition pre,
+html.theme-transition code,
+html.theme-transition .code-block,
+html.theme-transition .result-container {
+  transition: all var(--duration-normal) var(--ease-in-out) !important;
+}
+
+/* Карточки и элементы формы */
+html.theme-transition .card,
+html.theme-transition .form-field,
+html.theme-transition .button,
+html.theme-transition input,
+html.theme-transition textarea {
+  transition: all var(--duration-normal) var(--ease-in-out) !important;
+}
+
+/* Улучшенный переход для других интерактивных элементов */
+html.theme-transition button,
+html.theme-transition a,
+html.theme-transition .interactive {
+  transition: all var(--duration-fast) var(--ease-out) !important;
+}
+
+/* Отключение анимации для пользователей с prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *:before,
+  html.theme-transition *:after {
+    transition: none !important;
+  }
+}
+
+/* Стили для анимации иконки темы */
+.theme-toggle-icon {
+  transform-origin: center;
+  transition:
+    transform var(--duration-normal) var(--soft-spring),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.theme-toggle-icon-enter {
+  opacity: 0;
+  transform: scale(0.5) rotate(-30deg);
+}
+
+.theme-toggle-icon-enter-active,
+.theme-toggle-icon-enter-done {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+.theme-toggle-icon-exit {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+.theme-toggle-icon-exit-active,
+.theme-toggle-icon-exit-done {
+  opacity: 0;
+  transform: scale(0.5) rotate(30deg);
+}
+
+/* Стили для плавной анимации перехода между темами */
+.theme-transition * {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Отключение переходов при загрузке для предотвращения мерцания */
+.theme-init * {
+  transition: none !important;
+}
+
+/* Темные стили для быстрого применения в DOM */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: var(--background, rgb(15 23 42));
+  color: var(--foreground, rgb(248 250 252));
+}
+
+html.dark .feature-card {
+  background-color: var(--card-background, rgb(30 41 59));
+  color: var(--card-foreground, rgb(248 250 252));
+  border-color: var(--border, rgb(51 65 85));
+}
+
+html.dark .feature-icon {
+  background-color: var(--primary-background, rgba(99, 102, 241, 0.1));
+  color: var(--primary, rgb(99, 102, 241));
+}
+
+/* Светлые стили для быстрого применения в DOM */
+html:not(.dark) body {
+  background-color: var(--background, rgb(255 255 255));
+  color: var(--foreground, rgb(17 24 39));
+}
+
+html:not(.dark) .feature-card {
+  background-color: var(--card-background, rgb(255 255 255));
+  color: var(--card-foreground, rgb(17 24 39));
+  border-color: var(--border, rgb(229 231 235));
+}
+
+html:not(.dark) .feature-icon {
+  background-color: var(--primary-background, rgba(79, 70, 229, 0.1));
+  color: var(--primary, rgb(79, 70, 229));
+}
+
+/* Улучшенная система предотвращения мерцания при загрузке и переключении темы */
+/* Добавляет невидимый оверлей при инициализации, который скрывается после загрузки страницы */
+html:not(.theme-transition):not(.theme-init) * {
+  transition-duration: 0ms !important;
+}
+
+html[data-theme-initializing] {
+  visibility: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+html:not([data-theme-initializing]) {
+  animation: fadeIn 0.2s ease-out;
+}

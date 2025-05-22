@@ -1,0 +1,379 @@
+@import './tokens.shadows.css';
+@import './tokens.animations.css';
+
+:root {
+  /* Основные переменные размеров */
+  --font-size-dynamic-sm: clamp(0.875rem, 0.8vw, 0.925rem);
+  --font-size-dynamic-base: clamp(1rem, 1vw, 1.05rem);
+  --font-size-dynamic-lg: clamp(1.125rem, 1.2vw, 1.2rem);
+  --font-size-dynamic-xl: clamp(1.25rem, 1.35vw, 1.35rem);
+
+  /* Межстрочные интервалы для настроек доступности */
+  --line-height-default: 1.6;
+  --line-height-large: 1.7;
+  --line-height-larger: 1.8;
+
+  /* Шрифты - стандартные размеры */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 1.875rem;
+  --font-size-3xl: 2.25rem;
+  --font-size-4xl: 3rem;
+  --font-size-5xl: 3.75rem;
+  --font-size-6xl: 4.5rem;
+  --font-size-7xl: 6rem;
+  --font-size-8xl: 8rem;
+  --font-size-9xl: 9rem;
+
+  --line-height-xs: 1.1rem;
+  --line-height-sm: 1.25rem;
+  --line-height-base: 1.5rem;
+  --line-height-md: 1.65rem;
+  --line-height-lg: 1.75rem;
+  --line-height-xl: 2rem;
+  --line-height-2xl: 2.25rem;
+  --line-height-3xl: 2.5rem;
+  --line-height-4xl: 3rem;
+  --line-height-5xl: 3.75rem;
+  --line-height-6xl: 4.5rem;
+  --line-height-7xl: 6rem;
+  --line-height-8xl: 8rem;
+  --line-height-9xl: 9rem;
+
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  /* Основные цвета 2025 - светлая тема */
+  --primary: 34 82 255;
+  /* Синий */
+  --background: 250 251 252;
+  /* Почти белый */
+  /* --muted: 107 114 128; */
+  /* Серый */
+  --card: 255 255 255;
+  /* Белый */
+  --subtle: 243 244 246;
+  /* Очень светло-серый */
+  --border: 229 231 235;
+  /* Светло-серый */
+  --muted-foreground: 113 113 122;
+  /* Темно-серый */
+  --card-foreground: 23 23 23;
+  /* Почти черный */
+  --input: 248 249 250;
+  /* Очень светло-серый */
+  --input-foreground: 23 23 23;
+  /* Почти черный */
+  --ring: 34 82 255;
+  /* Синий (как primary) */
+
+  /* Переосмысленные радиусы 2025 */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+  --container-max: 1200px;
+  --container-padding: 1rem;
+
+  /* Функциональные цвета */
+  --success: 34 197 94;
+  /* Зеленый */
+  --error: 239 68 68;
+  /* Красный */
+  --warning: 234 179 8;
+  /* Желтый */
+  --info: 34 82 255;
+  /* Синий (как primary) */
+
+  /* Состояния взаимодействия */
+  /* Hover состояния */
+  --primary-hover: 28 75 242;
+  --secondary-hover: 8 145 178;
+  --success-hover: 11 125 115;
+  --error-hover: 209 49 76;
+  --warning-hover: 220 143 10;
+  --info-hover: 28 65 204;
+  --button-hover: 243 244 246;
+  --button-hover-dark: 42 42 46;
+
+  /* Active состояния */
+  --primary-active: 22 52 163;
+  --secondary-active: 7 89 133;
+  --success-active: 9 106 98;
+  --error-active: 185 28 28;
+  --warning-active: 180 83 9;
+  --info-active: 22 52 163;
+  --button-active: 229 231 235;
+  --button-active-dark: 63 63 70;
+
+  /* Disabled состояния */
+  --primary-disabled: 148 175 255;
+  --secondary-disabled: 212 212 216;
+  --success-disabled: 153 224 215;
+  --error-disabled: 252 179 190;
+  --warning-disabled: 254 215 170;
+  --info-disabled: 148 175 255;
+  --button-disabled: 229 231 235;
+  --button-disabled-dark: 39 39 42;
+
+  /* Фокус и доступность */
+  --focus-ring-color: rgba(var(--primary), 0.5);
+  --focus-ring-offset: 2px;
+  --focus-ring-width: 2px;
+
+  /* Улучшенные переменные фокуса */
+  --focus-ring: rgb(var(--primary));
+  --focus-shadow: rgba(var(--primary), 0.2);
+  --focus-ring-neutral: rgba(var(--primary), 0.7);
+  --focus-ring-error: rgb(var(--error));
+  --focus-shadow-error: rgba(var(--error), 0.25);
+  --focus-ring-success: rgb(var(--success));
+  --focus-shadow-success: rgba(var(--success), 0.25);
+
+  /* Эффекты и анимации */
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 16px;
+
+  --spring-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --soft-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Размеры элементов интерфейса */
+  --height-button-sm: 2.25rem;
+  --height-button: 2.5rem;
+  --height-button-lg: 2.75rem;
+  --padding-button-sm-x: 0.75rem;
+  --padding-button-x: 1rem;
+  --padding-button-lg-x: 1.25rem;
+  --padding-button-y: 0.5rem;
+  --padding-button-lg-y: 0.625rem;
+
+  /* Размеры пространства */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Переменные высокой контрастности - доступны всегда, включаются через класс или медиазапрос */
+  --hc-color-primary: 0 0 180;
+  --hc-color-secondary: 0 70 110;
+  --hc-color-success: 0 100 0;
+  --hc-color-error: 180 0 0;
+  --hc-color-warning: 175 100 10;
+  --hc-color-info: 0 85 190;
+
+  --hc-color-foreground: 0 0 0;
+  --hc-color-background: 255 255 255;
+  /* --muted: 30 30 30; */
+  --hc-color-border: 0 0 0;
+  --hc-focus-ring-width: 3px;
+  --hc-radius-sm: 0;
+  --hc-radius-md: 0;
+  --hc-radius-lg: 0.125rem;
+
+  /* Инвертированные цвета для темной высококонтрастной темы */
+  --hc-dark-color-primary: 160 160 255;
+  --hc-dark-color-secondary: 130 230 255;
+  --hc-dark-color-success: 130 255 130;
+  --hc-dark-color-error: 255 130 130;
+  --hc-dark-color-warning: 255 230 0;
+  --hc-dark-color-info: 130 190 255;
+
+  --hc-dark-color-foreground: 255 255 255;
+  --hc-dark-color-background: 0 0 0;
+  /* --muted: 200 200 200; */
+  --hc-dark-color-border: 255 255 255;
+
+  /* WCAG переменные контрастности */
+  --contrast-ratio-aa-normal: 4.5;
+  --contrast-ratio-aa-large: 3;
+  --contrast-ratio-aaa-normal: 7;
+  --contrast-ratio-aaa-large: 4.5;
+
+  /* Контрастные цвета для основных тем */
+  --contrast-high: 12 12 12;
+  --contrast-medium: 75 85 99;
+  --contrast-low: 156 163 175;
+
+  /* Цвета переднего плана для различных фонов */
+  --on-primary: 255 255 255;
+  --on-secondary: 255 255 255;
+  --on-tertiary: 255 255 255;
+  --on-error: 255 255 255;
+  --on-success: 255 255 255;
+  --on-warning: 0 0 0;
+  --on-info: 255 255 255;
+
+  /* Анимации и переходы */
+  --animation-fade-in: fadeIn 0.5s var(--ease-out-expo) forwards;
+  --animation-fade-out: fadeOut 0.3s var(--ease-out) forwards;
+  --animation-slide-in: slideIn 0.5s var(--ease-out-expo) forwards;
+  --animation-slide-out: slideOut 0.3s var(--ease-out) forwards;
+  --animation-scale-in: scaleIn 0.5s var(--soft-spring) forwards;
+  --animation-scale-out: scaleOut 0.3s var(--ease-out) forwards;
+
+  /* Транзиции */
+  --transition-button: all 0.2s var(--ease-out);
+  --transition-card: all 0.2s var(--ease-out);
+}
+
+/* Переменные темной темы 2025 */
+[data-theme='dark'],
+.dark {
+  /* Основные цвета 2025 - темная тема */
+  --primary: 59 130 246;
+  /* Немного светлее синий */
+  --background: 17 18 23;
+  /* Темно-серый почти черный */
+  --foreground: 250 251 252;
+  /* Почти белый */
+  /* --muted: 156 163 175; */
+  /* Светло-серый */
+  --card: 26 28 35;
+  /* Темно-серый */
+  --subtle: 26 28 35;
+  /* Темно-серый */
+  --border: 38 41 51;
+  /* Светло-серый */
+  --muted-foreground: 161 161 170;
+  /* Светло-серый */
+  --card-foreground: 244 245 246;
+  /* Почти белый */
+  --input: 30 32 36;
+  /* Светло-серый */
+  --input-foreground: 250 251 252;
+  /* Почти белый */
+  --ring: 59 130 246;
+  /* Синий (как primary) */
+
+  /* Функциональные цвета - для темной темы */
+  --success: 34 197 94;
+  /* Зеленый */
+  --error: 239 68 68;
+  /* Красный */
+  --warning: 234 179 8;
+  /* Желтый */
+  --info: 59 130 246;
+  /* Синий (как primary) */
+
+  /* Состояния взаимодействия для темной темы */
+  --primary-hover: 96 165 250;
+  --button-hover: rgba(59, 130, 246, 0.1);
+  --button-active: rgba(59, 130, 246, 0.2);
+
+  /* Цвета для доступности */
+  --contrast-high: 250 251 252;
+  --contrast-medium: 156 163 175;
+  --contrast-low: 107 114 128;
+}
+
+/* Система с предпочтением темной темы */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    /* Основные цвета 2025 - темная тема */
+    --primary: 59 130 246;
+    --background: 17 18 23;
+    --foreground: 250 251 252;
+    /* --muted: 156 163 175; */
+    --card: 26 28 35;
+    --subtle: 26 28 35;
+    --border: 38 41 51;
+    --muted-foreground: 161 161 170;
+    --card-foreground: 244 245 246;
+    --input: 30 32 36;
+    --input-foreground: 250 251 252;
+    --ring: 59 130 246;
+
+    /* Функциональные цвета - для темной темы */
+    --success: 34 197 94;
+    --error: 239 68 68;
+    --warning: 234 179 8;
+    --info: 59 130 246;
+  }
+}
+
+/* Доступность - высокий контраст */
+@media (prefers-contrast: more) {
+  :root {
+    --primary: var(--hc-color-primary);
+    --background: var(--hc-color-background);
+    --foreground: var(--hc-color-foreground);
+    /* --muted: var(--hc-color-muted); */
+    --border: var(--hc-color-border);
+    --focus-ring-width: var(--hc-focus-ring-width);
+    --radius-sm: var(--hc-radius-sm);
+    --radius-md: var(--hc-radius-md);
+    --radius-lg: var(--hc-radius-lg);
+  }
+
+  [data-theme='dark'] {
+    --primary: var(--hc-dark-color-primary);
+    --background: var(--hc-dark-color-background);
+    --foreground: var(--hc-dark-color-foreground);
+    /* --muted: var(--hc-dark-color-muted); */
+    --border: var(--hc-dark-color-border);
+  }
+}
+
+.high-contrast {
+  --primary: var(--hc-color-primary);
+  --background: var(--hc-color-background);
+  --foreground: var(--hc-color-foreground);
+  /* --muted: var(--hc-color-muted); */
+  --border: var(--hc-color-border);
+  --focus-ring-width: var(--hc-focus-ring-width);
+  --radius-sm: var(--hc-radius-sm);
+  --radius-md: var(--hc-radius-md);
+  --radius-lg: var(--hc-radius-lg);
+}
+
+/* Уменьшенное движение */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --spring-transition: all 0.001ms linear;
+    --soft-spring: linear;
+    --ease-out-expo: linear;
+    --ease-in-out: linear;
+    --ease-in: linear;
+    --ease-out: linear;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

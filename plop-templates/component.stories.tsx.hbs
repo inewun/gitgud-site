@@ -1,0 +1,31 @@
+import type { Meta, StoryObj } from '@/storybook/react';
+import {{pascalCase name}} from '@/components/{{pascalCase name}}';
+
+const meta: Meta<typeof {{pascalCase name}}> = {
+  title: '{{#if (eq type "atom")}}Atoms{{else if (eq type "molecule")}}Molecules{{else}}Organisms{{/if}}/{{pascalCase name}}',
+  component: {{pascalCase name}},
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    className: { control: 'text' },
+    children: { control: 'text' },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof {{pascalCase name}}>;
+
+export const Default: Story = {
+  args: {
+    children: 'Содержимое {{pascalCase name}}',
+  },
+};
+
+export const CustomClass: Story = {
+  args: {
+    className: 'bg-primary text-primary-text p-4 rounded-2xl',
+    children: 'С кастомным классом',
+  },
+};

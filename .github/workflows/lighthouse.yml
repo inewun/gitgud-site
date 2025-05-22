@@ -1,0 +1,225 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3.0.0
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4.0.0
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+
+      - name: Create Lighthouse CI config
+        run: |
+          cat > lighthouserc.json << EOF
+          {
+            "ci": {
+              "collect": {
+                "numberOfRuns": 3,
+                "startServerCommand": "pnpm start",
+                "url": [
+                  "http://localhost:3000/",
+                  "http://localhost:3000/tool",
+                  "http://localhost:3000/docs"
+                ],
+                "settings": {
+                  "preset": "desktop",
+                  "throttlingMethod": "simulate",
+                  "formFactor": "desktop",
+                  "screenEmulation": {
+                    "mobile": false,
+                    "width": 1350,
+                    "height": 940,
+                    "deviceScaleFactor": 1,
+                    "disabled": false
+                  }
+                }
+              },
+              "assert": {
+                "assertions": {
+                  "categories:performance": ["warn", {"minScore": 0.9}],
+                  "categories:accessibility": ["error", {"minScore": 0.9}],
+                  "categories:best-practices": ["warn", {"minScore": 0.9}],
+                  "categories:seo": ["warn", {"minScore": 0.9}],
+                  "first-contentful-paint": ["warn", {"maxNumericValue": 2000}],
+                  "interactive": ["warn", {"maxNumericValue": 3500}],
+                  "max-potential-fid": ["warn", {"maxNumericValue": 100}],
+                  "cumulative-layout-shift": ["warn", {"maxNumericValue": 0.1}],
+                  "largest-contentful-paint": ["warn", {"maxNumericValue": 2500}]
+                }
+              },
+              "upload": {
+                "target": "temporary-public-storage"
+              }
+            }
+          }
+          EOF
+
+      - name: Run Lighthouse CI
+        run: lhci autorun
+
+      - name: Save Lighthouse reports
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci
+          retention-days: 14
+
+      - name: Generate Lighthouse Results Markdown
+        if: always()
+        run: |
+          echo "## 🚦 Lighthouse Results" > lighthouse-results.md
+          echo "" >> lighthouse-results.md
+          echo "| Page | Performance | Accessibility | Best Practices | SEO |" >> lighthouse-results.md
+          echo "|------|-------------|---------------|----------------|-----|" >> lighthouse-results.md
+
+          for file in .lighthouseci/lhr-*.json; do
+            url=$(cat $file | jq -r '.requestedUrl' | sed 's|http://localhost:3000||')
+            [ "$url" = "" ] && url="/"
+            perf=$(cat $file | jq -r '.categories.performance.score * 100' | xargs printf "%.0f")
+            a11y=$(cat $file | jq -r '.categories.accessibility.score * 100' | xargs printf "%.0f")
+            bp=$(cat $file | jq -r '.categories["best-practices"].score * 100' | xargs printf "%.0f")
+            seo=$(cat $file | jq -r '.categories.seo.score * 100' | xargs printf "%.0f")
+            
+            echo "| $url | $perf | $a11y | $bp | $seo |" >> lighthouse-results.md
+          done
+
+          echo "" >> lighthouse-results.md
+          echo "Подробные отчеты доступны в артефактах сборки." >> lighthouse-results.md
+
+      - name: Upload Lighthouse Results Markdown
+        if: always()
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: lighthouse-results-markdown
+          path: lighthouse-results.md
+          retention-days: 14
+
+      # Добавляем комментарий с результатами в PR
+      - name: Comment PR with Lighthouse results
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2.9.0
+        with:
+          header: lighthouse
+          path: lighthouse-results.md
+          recreate: true
+
+      # Генерируем и сохраняем скриншоты страниц
+      - name: Generate screenshots
+        if: always()
+        run: |
+          mkdir -p lighthouse-screenshots
+          for file in .lighthouseci/lhr-*.json; do
+            url=$(cat $file | jq -r '.requestedUrl' | sed 's|http://localhost:3000||')
+            [ "$url" = "" ] && url="home"
+            url_clean=$(echo $url | sed 's|/|-|g')
+            
+            if [ -f ".lighthouseci/$(basename $file .json)-0.screenshot.jpg" ]; then
+              cp ".lighthouseci/$(basename $file .json)-0.screenshot.jpg" "lighthouse-screenshots/${url_clean}.jpg"
+            fi
+          done
+
+      # Загружаем скриншоты как артефакты
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: lighthouse-screenshots
+          path: lighthouse-screenshots
+          retention-days: 14
+
+      # Анализ результатов Lighthouse для добавления в PR чек
+      - name: Analyze Lighthouse results
+        if: github.event_name == 'pull_request'
+        id: lighthouse_check
+        run: |
+          total_score=0
+          count=0
+
+          for file in .lighthouseci/lhr-*.json; do
+            perf=$(cat $file | jq -r '.categories.performance.score * 100')
+            a11y=$(cat $file | jq -r '.categories.accessibility.score * 100')
+            bp=$(cat $file | jq -r '.categories["best-practices"].score * 100')
+            seo=$(cat $file | jq -r '.categories.seo.score * 100')
+            
+            total_score=$(echo "$total_score + $perf + $a11y + $bp + $seo" | bc)
+            count=$((count + 4))
+          done
+
+          avg_score=$(echo "scale=1; $total_score / $count" | bc)
+          echo "average_score=$avg_score" >> $GITHUB_OUTPUT
+
+          if (( $(echo "$avg_score >= 90" | bc -l) )); then
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "summary=✅ Lighthouse проверка пройдена успешно! Средний балл: $avg_score" >> $GITHUB_OUTPUT
+          elif (( $(echo "$avg_score >= 80" | bc -l) )); then
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "summary=✅ Lighthouse проверка пройдена. Средний балл: $avg_score - Рекомендуется оптимизация" >> $GITHUB_OUTPUT
+          else
+            echo "status=failure" >> $GITHUB_OUTPUT
+            echo "summary=❌ Lighthouse проверка не пройдена. Средний балл: $avg_score - Требуется оптимизация" >> $GITHUB_OUTPUT
+          fi
+
+      # Добавление результата проверки как чек в PR
+      - name: Report Lighthouse status
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { issue: { number: issue_number }, repo: { owner, repo } } = context;
+            const lighthouse_result = '${{ steps.lighthouse_check.outputs.summary }}';
+            const status = '${{ steps.lighthouse_check.outputs.status }}';
+
+            await github.rest.checks.create({
+              owner,
+              repo,
+              name: 'Lighthouse CI',
+              head_sha: context.payload.pull_request.head.sha,
+              status: 'completed',
+              conclusion: status,
+              output: {
+                title: 'Lighthouse Performance Report',
+                summary: lighthouse_result,
+                text: 'Подробные результаты доступны в комментарии к PR.'
+              }
+            });

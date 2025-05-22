@@ -1,0 +1,25 @@
+name: Feature Request
+description: Предложить улучшение или новую фичу
+labels: [enhancement]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Описание
+      description: Кратко опишите предлагаемую фичу или улучшение
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Мотивация
+      description: Почему это важно?
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Критерии готовности
+      description: - [ ] ...
+  - type: textarea
+    id: extra
+    attributes:
+      label: Дополнительно
+      description: (по желанию)
+      optional: true

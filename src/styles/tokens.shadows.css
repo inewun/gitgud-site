@@ -1,0 +1,63 @@
+:root {
+  /* Тени UI кард и компонентов */
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.06);
+  --shadow-md: 0 2px 8px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 4px 16px rgb(0 0 0 / 0.10);
+  --shadow-xl: 0 8px 16px rgb(0 0 0 / 0.07);
+  --shadow-2xl: 0 12px 24px rgb(0 0 0 / 0.08);
+  --shadow-3xl: 0 16px 32px rgb(0 0 0 / 0.1);
+  --shadow-inner: inset 0 2px 4px rgb(0 0 0 / 0.05);
+  --shadow-focus: 0 0 0 2px rgba(var(--primary), 0.6);
+
+  /* Blur эффекты */
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 16px;
+  --blur-xl: 24px;
+
+  /* Оттенки теней для различных контекстов */
+  --shadow-color-default: 0 0 0;
+  /* black */
+  --shadow-color-primary: var(--primary);
+  --shadow-color-success: var(--success);
+  --shadow-color-error: var(--error);
+  --shadow-color-warning: var(--warning);
+
+  /* Тени для состояний */
+  --shadow-hover: 0 6px 18px rgb(0 0 0 / 0.12);
+  --shadow-active: 0 2px 4px rgb(0 0 0 / 0.1);
+}
+
+/* Темная тема */
+.dark,
+[data-theme='dark'],
+[data-color-theme='dark'] {
+  /* Тени в темной теме должны быть более заметными */
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.1);
+  --shadow-sm: 0 2px 4px rgb(0 0 0 / 0.12);
+  --shadow-md: 0 3px 8px rgb(0 0 0 / 0.15);
+  --shadow-lg: 0 6px 16px rgb(0 0 0 / 0.18);
+  --shadow-xl: 0 10px 24px rgb(0 0 0 / 0.2);
+  --shadow-2xl: 0 16px 32px rgb(0 0 0 / 0.22);
+  --shadow-3xl: 0 20px 48px rgb(0 0 0 / 0.25);
+  --shadow-inner: inset 0 2px 4px rgb(0 0 0 / 0.15);
+  --shadow-focus: 0 0 0 2px rgba(var(--primary), 0.8);
+
+  /* Тени для состояний в темной теме */
+  --shadow-hover: 0 8px 24px rgb(0 0 0 / 0.20);
+  --shadow-active: 0 3px 6px rgb(0 0 0 / 0.2);
+}
+
+/* Высококонтрастный режим */
+@media (prefers-contrast: more) {
+  :root {
+    /* Увеличенные тени для высококонтрастного режима */
+    --shadow-xs: 0 1px 3px rgb(0 0 0 / 0.15);
+    --shadow-sm: 0 2px 5px rgb(0 0 0 / 0.18);
+    --shadow-md: 0 4px 8px rgb(0 0 0 / 0.2);
+    --shadow-lg: 0 8px 16px rgb(0 0 0 / 0.22);
+    --shadow-xl: 0 12px 24px rgb(0 0 0 / 0.25);
+    --shadow-focus: 0 0 0 3px rgb(0 0 0);
+  }
+}

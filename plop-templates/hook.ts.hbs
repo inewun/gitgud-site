@@ -1,0 +1,8 @@
+import { useState, useCallback } from 'react'; export interface Use{{pascalCase name}}Options { /**
+* Опциональные параметры хука */ initialValue?: any; } /** * Хук use{{pascalCase name}}
+* * @example * ```tsx * const { value, setValue } = use{{pascalCase name}}({ initialValue:
+'начальное значение' }); * ``` */ export const use{{pascalCase name}}
+= (options: Use{{pascalCase name}}Options = {}) => { const { initialValue = null } = options; const
+[value, setValue] = useState(initialValue); const reset = useCallback(() => {
+setValue(initialValue); }, [initialValue]); return { value, setValue, reset, }; }; export default
+use{{pascalCase name}};

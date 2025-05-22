@@ -1,0 +1,11 @@
+import { renderHook, act } from '@/testing-library/react'; import use{{pascalCase name}}
+from '../use{{pascalCase name}}'; describe('use{{pascalCase name}}', () => { it('должен возвращать
+начальное значение', () => { const initialValue = 'test'; const { result } = renderHook(() => use{{pascalCase
+  name
+}}({ initialValue })); expect(result.current.value).toBe(initialValue); }); it('должен обновлять
+значение', () => { const { result } = renderHook(() => use{{pascalCase name}}()); act(() => {
+result.current.setValue('новое значение'); }); expect(result.current.value).toBe('новое значение');
+}); it('должен сбрасывать к начальному значению', () => { const initialValue = 'начальное значение';
+const { result } = renderHook(() => use{{pascalCase name}}({ initialValue })); act(() => {
+result.current.setValue('новое значение'); }); expect(result.current.value).toBe('новое значение');
+act(() => { result.current.reset(); }); expect(result.current.value).toBe(initialValue); }); });

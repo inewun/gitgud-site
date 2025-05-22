@@ -1,0 +1,15 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": false,
+  "typescript.validate.enable": true,
+  "js/ts.implicitProjectConfig.checkJs": false,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "css.validate": false,
+  "tailwindCSS.validate": true
+}
