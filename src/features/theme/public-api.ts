@@ -18,4 +18,5 @@ export { useTheme } from './hooks/useTheme';
 export type { Theme, ThemeContextType } from './types';
 
 // Константы
-export { THEMES, DEFAULT_THEME } from './constants';
+export { THEMES } from './constants';
+export { DEFAULT_THEME } from './model/constants';
