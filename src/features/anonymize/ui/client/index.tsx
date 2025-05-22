@@ -3,10 +3,12 @@
 import { LazyComponent as LazyComponentImpl } from '@/shared/ui/utils/lazy-component';
 
 import { AnonymizeForm, AnonymizeFormProps } from './AnonymizeForm';
+import { AnonymizeErrorDisplay } from './AnonymizeErrorDisplay';
+import { LazyResultsList } from './LazyResultsList';
 
 import type { AnonymizeResult } from '../server/ResultsList';
 
-export { AnonymizeForm };
+export { AnonymizeForm, AnonymizeErrorDisplay, LazyResultsList };
 
 // Создаем ленивую версию компонента формы
 export const LazyAnonymizeForm = (props: AnonymizeFormProps) => {
@@ -14,7 +16,7 @@ export const LazyAnonymizeForm = (props: AnonymizeFormProps) => {
     <LazyComponentImpl<AnonymizeFormProps>
       loader={() =>
         import('./AnonymizeForm').then(module => ({
-          default: module.AnonymizeForm as React.ComponentType<AnonymizeFormProps>,
+          default: module.AnonymizeForm,
         }))
       }
       componentProps={props}
@@ -35,7 +37,7 @@ export const LazyAnonymizeResultsTable = (props: ResultsListProps) => {
     <LazyComponentImpl<ResultsListProps>
       loader={() =>
         import('../server/ResultsList').then(module => ({
-          default: module.ResultsList as React.ComponentType<ResultsListProps>,
+          default: module.ResultsList,
         }))
       }
       componentProps={props}

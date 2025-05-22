@@ -6,7 +6,7 @@
  */
 
 // UI компоненты
-export { AnonymizeForm, AnonymizeErrorDisplay, LazyResultsList } from './ui/components';
+export { AnonymizeForm, AnonymizeErrorDisplay, LazyResultsList } from './ui/client';
 
 // Типы
 export type { AnonymizeError } from './api/anonymize.service';
