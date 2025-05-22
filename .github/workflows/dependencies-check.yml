@@ -34,7 +34,7 @@ jobs:
 
       - name: Create issue if outdated dependencies found
         if: success()
-        uses: peter-evans/create-issue-from-file@v4
+        uses: peter-evans/create-issue-from-file@v5
         with:
           title: Outdated Dependencies Report
           content-filepath: ./outdated-deps.md
