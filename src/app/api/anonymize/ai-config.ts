@@ -4,7 +4,7 @@
 
 // URL API-сервера анонимизации (по умолчанию локальный)
 export const ANONYMIZATION_API_URL = 
-  process.env.ANONYMIZATION_API_URL || 'http://192.168.0.105:5000';
+  process.env.ANONYMIZATION_API_URL || 'http://194.87.29.151:5000';
 
 // API ключ для аутентификации на сервере (должен совпадать с ключом на сервере)
 export const ANONYMIZATION_API_KEY = 
