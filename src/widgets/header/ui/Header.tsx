@@ -3,10 +3,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import { Shield, Github } from 'lucide-react';
+import { Shield } from 'lucide-react';
 
 import { cn } from '@/shared/lib/utils';
-import { ThemeToggle } from '@/shared/ui/feedback/theme-toggle';
 import { MobileNavigation } from '@/shared/ui/navigation/mobile-navigation/MobileNavigation';
 
 const navigation = [
@@ -99,28 +98,8 @@ export function Header({ className }: HeaderProps) {
           ))}
         </nav>
 
-        {/* Кнопки справа */}
-        <div className="flex items-center gap-2 sm:gap-3 md:gap-3 flex-1 justify-end">
-          <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11">
-            <a
-              href="https://github.com/fred-yagofarov1314/anonymize-tool"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-2xl hover:bg-primary/10 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary shadow-lg hover:scale-[1.08] active:scale-95"
-              aria-label="GitHub"
-              tabIndex={0}
-              style={{ borderRadius: 'var(--radius-2xl)' }}
-            >
-              <Github
-                className="w-5 h-5 sm:w-5.5 sm:h-5.5 md:w-6 md:h-6 text-primary icon-animated"
-                strokeWidth={2.1}
-              />
-            </a>
-          </div>
-          <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11">
-            <ThemeToggle className="scale-90 sm:scale-95 md:scale-100 transition-colors duration-200 hover:bg-primary/10 active:scale-95 rounded-2xl focus-visible:ring-2 focus-visible:ring-primary shadow-lg" />
-          </div>
-          {/* Мобильное меню */}
+        {/* Мобильное меню */}
+        <div className="flex items-center justify-end flex-1">
           <div className="md:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11">
             <MobileNavigation
               items={navigation.map(item => ({
