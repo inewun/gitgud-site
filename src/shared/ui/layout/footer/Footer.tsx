@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
 import { Github } from 'lucide-react';
 
 import { cn } from '@/styles/common';
@@ -43,19 +44,42 @@ export function Footer({ className }: FooterProps) {
   }
 
   return (
-    <footer className={cn(
-      "bg-background/60 border-t border-border/60 shadow-md min-h-[80px] w-full transition-all duration-500",
-      className
-    )} role="contentinfo">
+    <footer
+      className={cn(
+        'bg-background/60 border-t border-border/60 shadow-md min-h-[80px] w-full transition-all duration-500',
+        className,
+      )}
+      role="contentinfo"
+    >
       <div className="container rounded-2xl flex flex-col md:flex-row items-center md:justify-between gap-8 py-4">
         {/* Логотип-иконка */}
-        <Link href="/" className="flex items-center justify-center h-12 w-12 rounded-full bg-muted hover:bg-primary/10 transition-colors focus-visible:ring-2 focus-visible:ring-primary outline-none" aria-label="На главную">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M12 3l7 4v5c0 5-3.5 9-7 9s-7-4-7-9V7z" /></svg>
+        <Link
+          href="/"
+          className="flex items-center justify-center h-12 w-12 rounded-full bg-muted hover:bg-primary/10 transition-colors focus-visible:ring-2 focus-visible:ring-primary outline-none"
+          aria-label="На главную"
+        >
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-primary"
+          >
+            <path d="M12 3l7 4v5c0 5-3.5 9-7 9s-7-4-7-9V7z" />
+          </svg>
         </Link>
         {/* Ссылки */}
         <nav className="flex flex-col md:flex-row gap-6 md:gap-10 items-center text-xs uppercase tracking-wider font-bold text-foreground/70">
           {navigation.main.map(item => (
-            <Link key={item.href} href={item.href} className="hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary outline-none px-1 py-0.5">
+            <Link
+              key={item.href}
+              href={item.href}
+              className="hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary outline-none px-1 py-0.5"
+            >
               {item.name}
             </Link>
           ))}

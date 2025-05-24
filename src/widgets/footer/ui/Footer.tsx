@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { Shield, Github } from 'lucide-react';
-import { cn } from '@/shared/lib/utils';
-import { withMemo } from '@/shared/lib/utils/memo';
 import React from 'react';
 
-const mainLinks = [
-  { name: 'Связь: *****@yandex.ru', href: 'mailto:*****@yandex.ru' },
-];
+import { Shield, Github } from 'lucide-react';
+
+import { cn } from '@/shared/lib/utils';
+import { withMemo } from '@/shared/lib/utils/memo';
+
+const mainLinks = [{ name: 'Связь: *****@yandex.ru', href: 'mailto:*****@yandex.ru' }];
 
 const github = {
   name: 'GitHub',
@@ -35,14 +35,21 @@ const FooterBase: React.FC = () => {
             aria-label="На главную"
             tabIndex={0}
           >
-            <Shield className="w-7 h-7 transition-colors duration-200 group-hover:text-primary" strokeWidth={2.2} />
-            <span className="font-extrabold text-xl tracking-tight text-foreground leading-none transition-colors duration-200 group-hover:text-primary">Datashield</span>
+            <Shield
+              className="w-7 h-7 transition-colors duration-200 group-hover:text-primary"
+              strokeWidth={2.2}
+            />
+            <span className="font-extrabold text-xl tracking-tight text-foreground leading-none transition-colors duration-200 group-hover:text-primary">
+              Datashield
+            </span>
           </Link>
-          <span className="text-xs text-muted-foreground ml-2 truncate max-w-[180px] md:max-w-none">© {currentYear} Datashield. Безопасная анонимизация текстовых данных.</span>
+          <span className="text-xs text-muted-foreground ml-2 truncate max-w-[180px] md:max-w-none">
+            © {currentYear} Datashield. Безопасная анонимизация текстовых данных.
+          </span>
         </div>
         {/* Навигация и соцсети */}
         <div className="flex flex-wrap justify-center md:justify-end items-center gap-2 md:gap-4">
-          {mainLinks.map((l) => (
+          {mainLinks.map(l => (
             <Link
               key={l.name}
               href={l.href}

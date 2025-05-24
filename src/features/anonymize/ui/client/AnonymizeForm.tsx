@@ -11,7 +11,6 @@ import { getIntl, formatMessage } from '@/lib/i18n/index';
 // Импортируем UI компоненты напрямую из их модулей
 import { withMemo } from '@/shared/lib/utils/memo';
 import { Button } from '@/shared/ui/inputs/button/Button';
-import { TextareaField } from '@/shared/ui/inputs/textarea/TextareaField';
 import { Checkbox } from '@/shared/ui/inputs/checkbox/Checkbox';
 import { PreformattedText } from '@/shared/ui/typography/PreformattedText';
 import { AriaLive } from '@/shared/ui/utils/accessibility/AriaLive';
@@ -234,28 +233,42 @@ const AnonymizeFormBase: React.FC<AnonymizeFormProps> = ({ locale = 'ru' }) => {
             />
             {errors.inputText && (
               <span className="text-destructive text-sm mb-1 flex items-center gap-1 animate-shake">
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#ef4444" strokeWidth="2" /><path d="M12 8v4m0 4h.01" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" /></svg>
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="#ef4444" strokeWidth="2" />
+                  <path
+                    d="M12 8v4m0 4h.01"
+                    stroke="#ef4444"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
                 Введите текст для анонимизации
               </span>
             )}
             <div className="flex flex-wrap gap-4 items-center justify-start mt-2">
               <Checkbox
                 checked={options.replaceNames}
-                onChange={() => toggleOption('replaceNames')}
+                onChange={() => {
+                  toggleOption('replaceNames');
+                }}
                 label="Имена"
                 id="anonymize-names"
                 className="text-base scale-110 rounded-xl border border-border focus:ring-primary/40 transition-all duration-200"
               />
               <Checkbox
                 checked={options.replaceEmails}
-                onChange={() => toggleOption('replaceEmails')}
+                onChange={() => {
+                  toggleOption('replaceEmails');
+                }}
                 label="Email"
                 id="anonymize-emails"
                 className="text-base scale-110 rounded-xl border border-border focus:ring-primary/40 transition-all duration-200"
               />
               <Checkbox
                 checked={options.replacePhones}
-                onChange={() => toggleOption('replacePhones')}
+                onChange={() => {
+                  toggleOption('replacePhones');
+                }}
                 label="Телефоны"
                 id="anonymize-phones"
                 className="text-base scale-110 rounded-xl border border-border focus:ring-primary/40 transition-all duration-200"
@@ -281,16 +294,33 @@ const AnonymizeFormBase: React.FC<AnonymizeFormProps> = ({ locale = 'ru' }) => {
             </div>
             {statusMessage && (
               <div
-                className={`mt-3 p-4 rounded-xl text-base font-medium flex items-center gap-2 transition-all duration-200 ${statusMessage.includes('ошибка') || statusMessage.includes('Ошибка')
-                  ? 'bg-destructive/10 text-destructive border border-destructive/20'
-                  : 'bg-success/10 text-success border border-success/20'
-                  }`}
+                className={`mt-3 p-4 rounded-xl text-base font-medium flex items-center gap-2 transition-all duration-200 ${
+                  statusMessage.includes('ошибка') || statusMessage.includes('Ошибка')
+                    ? 'bg-destructive/10 text-destructive border border-destructive/20'
+                    : 'bg-success/10 text-success border border-success/20'
+                }`}
                 role="alert"
               >
                 {statusMessage.includes('ошибка') || statusMessage.includes('Ошибка') ? (
-                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#ef4444" strokeWidth="2" /><path d="M12 8v4m0 4h.01" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" /></svg>
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="#ef4444" strokeWidth="2" />
+                    <path
+                      d="M12 8v4m0 4h.01"
+                      stroke="#ef4444"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 ) : (
-                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="2" /><path d="M9 12l2 2 4-4" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" /></svg>
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="2" />
+                    <path
+                      d="M9 12l2 2 4-4"
+                      stroke="#22c55e"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 )}
                 {statusMessage}
               </div>
@@ -302,8 +332,22 @@ const AnonymizeFormBase: React.FC<AnonymizeFormProps> = ({ locale = 'ru' }) => {
             <div className="flex gap-3 mb-3 self-end">
               {anonymizedText && (
                 <>
-                  <Button onClick={handleCopy} variant="secondary" size="lg" className="min-w-[120px] rounded-xl shadow-lg transition-all duration-200 hover:scale-105">Скопировать</Button>
-                  <Button onClick={handleDownload} variant="secondary" size="lg" className="min-w-[120px] rounded-xl shadow-lg transition-all duration-200 hover:scale-105">Скачать</Button>
+                  <Button
+                    onClick={handleCopy}
+                    variant="secondary"
+                    size="lg"
+                    className="min-w-[120px] rounded-xl shadow-lg transition-all duration-200 hover:scale-105"
+                  >
+                    Скопировать
+                  </Button>
+                  <Button
+                    onClick={handleDownload}
+                    variant="secondary"
+                    size="lg"
+                    className="min-w-[120px] rounded-xl shadow-lg transition-all duration-200 hover:scale-105"
+                  >
+                    Скачать
+                  </Button>
                 </>
               )}
             </div>
@@ -311,7 +355,9 @@ const AnonymizeFormBase: React.FC<AnonymizeFormProps> = ({ locale = 'ru' }) => {
               {anonymizedText ? (
                 <PreformattedText content={anonymizedText} />
               ) : (
-                <span className="text-muted-foreground">Здесь появится анонимизированный текст</span>
+                <span className="text-muted-foreground">
+                  Здесь появится анонимизированный текст
+                </span>
               )}
             </div>
           </div>

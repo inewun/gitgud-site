@@ -2,8 +2,8 @@
 
 import { LazyComponent as LazyComponentImpl } from '@/shared/ui/utils/lazy-component';
 
-import { AnonymizeForm, AnonymizeFormProps } from './AnonymizeForm';
 import { AnonymizeErrorDisplay } from './AnonymizeErrorDisplay';
+import { AnonymizeForm, AnonymizeFormProps } from './AnonymizeForm';
 import { LazyResultsList } from './LazyResultsList';
 
 import type { AnonymizeResult } from '../server/ResultsList';

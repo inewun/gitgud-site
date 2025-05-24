@@ -5,18 +5,18 @@ import { useEffect, useState } from 'react';
 export function MobileTextStyles() {
   // Используем useEffect, чтобы избежать ошибок гидрации
   const [isClient, setIsClient] = useState(false);
-  
+
   useEffect(() => {
     setIsClient(true);
   }, []);
-  
+
   useEffect(() => {
     if (!isClient) return;
-    
+
     // Создаем объекты медиа-запросов для разных размеров экрана
     const smallQuery = window.matchMedia('(max-width: 480px)');
     const verySmallQuery = window.matchMedia('(max-width: 360px)');
-    
+
     // Создаем элемент стиля
     const styleElement = document.createElement('style');
     styleElement.id = 'mobile-text-styles';
@@ -122,8 +122,12 @@ export function MobileTextStyles() {
     updateStyles();
 
     // Добавляем слушатели изменения размера экрана
-    const smallListener = () => updateStyles();
-    const verySmallListener = () => updateStyles();
+    const smallListener = () => {
+      updateStyles();
+    };
+    const verySmallListener = () => {
+      updateStyles();
+    };
 
     smallQuery.addEventListener('change', smallListener);
     verySmallQuery.addEventListener('change', verySmallListener);
@@ -139,4 +143,4 @@ export function MobileTextStyles() {
   }, [isClient]);
 
   return null;
-} 
+}

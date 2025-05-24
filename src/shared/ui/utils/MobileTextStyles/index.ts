@@ -1,1 +1,1 @@
-export { MobileTextStyles } from './MobileTextStyles'; 
+export { MobileTextStyles } from './MobileTextStyles';

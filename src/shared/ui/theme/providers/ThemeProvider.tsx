@@ -36,5 +36,9 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     }
   }, []);
 
-  return <NextThemeProvider {...props} enableSystem={false}>{children}</NextThemeProvider>;
+  return (
+    <NextThemeProvider {...props} enableSystem={false}>
+      {children}
+    </NextThemeProvider>
+  );
 }

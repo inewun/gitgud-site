@@ -1,16 +1,20 @@
 'use client';
 
 import React, { useEffect } from 'react';
+
 import { AnimatePresence } from 'framer-motion';
-import { useThemeControl } from '../model/useThemeControl';
+
 import { ThemeToggle as SharedThemeToggle } from '@/shared/ui/feedback/theme-toggle';
+
+import { useThemeControl } from '../model/useThemeControl';
+
 import { ThemeDropdownMenu } from './components';
 
 /**
  * Компонент переключения темы.
  * Обеспечивает интерфейс для выбора темы (светлая, темная, системная).
  * Вся бизнес-логика теперь вынесена в хук useThemeControl.
- * 
+ *
  * @deprecated Используйте ThemeToggle из @/shared/ui/feedback/theme-toggle
  */
 export function ThemeToggle() {

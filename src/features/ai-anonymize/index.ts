@@ -3,4 +3,4 @@
  * Экспортирует компоненты для использования на странице
  */
 
-export { AiAnonymizeForm } from './ui/client/AiAnonymizeForm'; 
+export { AiAnonymizeForm } from './ui/client/AiAnonymizeForm';

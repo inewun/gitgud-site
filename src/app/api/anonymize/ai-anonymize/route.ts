@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+
 import { AI_ANONYMIZATION_CONFIG } from '../ai-config';
 
 /**
@@ -19,18 +20,21 @@ export async function POST(request: NextRequest) {
     }
 
     // Отправляем запрос к Python API серверу
-    const response = await fetch(`${AI_ANONYMIZATION_CONFIG.baseUrl}${AI_ANONYMIZATION_CONFIG.endpoints.analyze}`, {
-      method: 'POST',
-      headers: AI_ANONYMIZATION_CONFIG.options.headers,
-      body: JSON.stringify({ text }),
-    });
+    const response = await fetch(
+      `${AI_ANONYMIZATION_CONFIG.baseUrl}${AI_ANONYMIZATION_CONFIG.endpoints.analyze}`,
+      {
+        method: 'POST',
+        headers: AI_ANONYMIZATION_CONFIG.options.headers,
+        body: JSON.stringify({ text }),
+      },
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
       return NextResponse.json(
-        { 
-          error: 'Ошибка при обработке на сервере анонимизации', 
-          details: errorData.error || 'Неизвестная ошибка'
+        {
+          error: 'Ошибка при обработке на сервере анонимизации',
+          details: errorData.error || 'Неизвестная ошибка',
         },
         { status: response.status },
       );
@@ -67,16 +71,22 @@ export async function POST(request: NextRequest) {
 export async function GET() {
   try {
     // Проверяем доступность Python API сервера
-    const response = await fetch(`${AI_ANONYMIZATION_CONFIG.baseUrl}${AI_ANONYMIZATION_CONFIG.endpoints.health}`, {
-      headers: AI_ANONYMIZATION_CONFIG.options.headers,
-    });
+    const response = await fetch(
+      `${AI_ANONYMIZATION_CONFIG.baseUrl}${AI_ANONYMIZATION_CONFIG.endpoints.health}`,
+      {
+        headers: AI_ANONYMIZATION_CONFIG.options.headers,
+      },
+    );
 
     if (!response.ok) {
-      return NextResponse.json({
-        status: 'error',
-        message: 'Сервер анонимизации недоступен',
-        time: new Date().toISOString(),
-      }, { status: 503 });
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: 'Сервер анонимизации недоступен',
+          time: new Date().toISOString(),
+        },
+        { status: 503 },
+      );
     }
 
     const healthData = await response.json();
@@ -88,11 +98,14 @@ export async function GET() {
       time: new Date().toISOString(),
     });
   } catch (error) {
-    return NextResponse.json({
-      status: 'error',
-      message: 'Сервер анонимизации недоступен',
-      details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined,
-      time: new Date().toISOString(),
-    }, { status: 503 });
+    return NextResponse.json(
+      {
+        status: 'error',
+        message: 'Сервер анонимизации недоступен',
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined,
+        time: new Date().toISOString(),
+      },
+      { status: 503 },
+    );
   }
-} 
+}

@@ -1,8 +1,9 @@
-import React from "react";
-import { HeroSection } from './HeroSection';
-import { FeaturesSection } from './FeaturesSection';
-import { UseCasesSection } from './UseCasesSection';
+import React from 'react';
+
 import { CtaSection } from './CtaSection';
+import { FeaturesSection } from './FeaturesSection';
+import { HeroSection } from './HeroSection';
+import { UseCasesSection } from './UseCasesSection';
 
 /**
  * Виджет домашней страницы, объединяющий все секции
@@ -16,4 +17,4 @@ export const HomeWidget: React.FC = () => {
       <CtaSection />
     </React.Fragment>
   );
-}; 
+};

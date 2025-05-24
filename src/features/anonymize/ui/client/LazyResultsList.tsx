@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+
 import { History } from 'lucide-react';
 
 import type { AnonymizeResult } from '../server/ResultsList';

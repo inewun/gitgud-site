@@ -12,9 +12,9 @@ import '@/styles/globals.css';
 import '@/styles/critical.css';
 import { SkipLink } from '@/shared/ui';
 import { FooterPlaceholder } from '@/shared/ui/layout/footer/FooterPlaceholder';
-import { Header } from '@/widgets/header/ui/Header';
 import { ThemeProvider } from '@/shared/ui/theme/providers';
 import { Footer } from '@/widgets/footer/ui/Footer';
+import { Header } from '@/widgets/header/ui/Header';
 
 // Загрузка шрифтов
 const inter = Inter({
@@ -25,10 +25,6 @@ const inter = Inter({
 });
 
 const Analytics = dynamic(() => import('@/shared/ui/utils/analytics/Analytics'), { ssr: false });
-const DynamicAccessibilitySettings = dynamic(
-  () => import('@/shared/ui/utils/accessibility/AccessibilitySettings'),
-  { ssr: false },
-);
 const MobileTextStyles = dynamic(
   () => import('@/shared/ui/utils/MobileTextStyles').then(mod => mod.MobileTextStyles),
   { ssr: false },
@@ -219,11 +215,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Analytics />
             </Suspense>
 
-            {/* Компонент настроек доступности */}
-            <Suspense fallback={null}>
-              <DynamicAccessibilitySettings />
-            </Suspense>
-            
             {/* Компонент для адаптивных стилей текста на мобильных */}
             <Suspense fallback={null}>
               <MobileTextStyles />

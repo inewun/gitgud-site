@@ -1,7 +1,6 @@
 import { useCallback, useState, useEffect } from 'react';
 
 import { useTheme as useNextTheme } from 'next-themes';
-import type { Theme } from '../types';
 
 /**
  * Хук для работы с темой

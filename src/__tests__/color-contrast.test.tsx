@@ -101,7 +101,7 @@ function createSpecialColors(baseColors: ColorMap): ColorMap {
 // Получаем цвета из конфигурации Tailwind
 function extractColorsFromTailwind(): ColorMap {
   const { theme } = tailwindConfig;
-  const themeColors = theme?.colors || {};
+  const themeColors = theme.colors || {};
 
   // Обработка основных цветов
   const baseColors = processNestedColors(themeColors);

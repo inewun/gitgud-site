@@ -284,11 +284,13 @@ const config = {
           backgroundPosition: '0 0',
         },
         '.bg-mesh-light': {
-          backgroundImage: 'linear-gradient(rgba(15, 23, 42, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, 0.02) 1px, transparent 1px)',
+          backgroundImage:
+            'linear-gradient(rgba(15, 23, 42, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, 0.02) 1px, transparent 1px)',
           backgroundSize: '32px 32px',
         },
         '.bg-mesh-dark': {
-          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
+          backgroundImage:
+            'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
           backgroundSize: '32px 32px',
         },
         // 2025: Эффекты нового поколения

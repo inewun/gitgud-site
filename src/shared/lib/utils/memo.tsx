@@ -123,11 +123,11 @@ export function isEqual(obj1: unknown, obj2: unknown, visited = new WeakMap()): 
   }
 
   // Проверка на циклические ссылки
-  if (visited.has(obj1 as object)) {
-    return visited.get(obj1 as object) === obj2;
+  if (visited.has(obj1)) {
+    return visited.get(obj1) === obj2;
   }
 
-  visited.set(obj1 as object, obj2);
+  visited.set(obj1, obj2);
 
   // Если оба объекта являются массивами
   if (Array.isArray(obj1) && Array.isArray(obj2)) {
@@ -144,7 +144,11 @@ export function isEqual(obj1: unknown, obj2: unknown, visited = new WeakMap()): 
   return keys1.every(key => {
     return (
       keys2.includes(key) &&
-      isEqual((obj1 as Record<string, unknown>)[key], (obj2 as Record<string, unknown>)[key], visited)
+      isEqual(
+        (obj1 as Record<string, unknown>)[key],
+        (obj2 as Record<string, unknown>)[key],
+        visited,
+      )
     );
   });
 }

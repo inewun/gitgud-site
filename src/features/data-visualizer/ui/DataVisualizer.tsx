@@ -8,7 +8,9 @@ interface DataVisualizerProps {
 export function DataVisualizer({ data = [], className = '' }: DataVisualizerProps) {
   return (
     <div className={`p-4 bg-card dark:bg-card rounded-lg shadow ${className}`}>
-      <h2 className="text-xl font-semibold mb-4 text-foreground dark:text-foreground">Data Visualizer</h2>
+      <h2 className="text-xl font-semibold mb-4 text-foreground dark:text-foreground">
+        Data Visualizer
+      </h2>
 
       {data.length === 0 ? (
         <div className="text-muted-foreground dark:text-muted-foreground text-center py-8">

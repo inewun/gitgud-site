@@ -12,7 +12,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary text-white hover:bg-primary-hover focus-visible:ring-primary/70',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:ring-secondary/70',
+        secondary:
+          'bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:ring-secondary/70',
         outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
         subtle: 'bg-subtle text-foreground hover:bg-accent hover:text-foreground',
         ghost: 'bg-transparent hover:bg-subtle hover:text-accent-foreground',
@@ -59,7 +60,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants> {
   /** Иконка, отображаемая слева */
   leftIcon?: React.ReactNode;
   /** Иконка, отображаемая справа */
@@ -74,7 +75,7 @@ export interface ButtonProps
 
 /**
  * Основной компонент кнопки
- * 
+ *
  * @example
  * <Button variant="default" size="md" animation="lift">Кнопка</Button>
  * <Button variant="outline" rounded elevated>С иконкой</Button>
@@ -167,7 +168,10 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <button
-        className={cn(buttonVariants({ variant, size, animation, fullWidth, rounded, elevated }), className)}
+        className={cn(
+          buttonVariants({ variant, size, animation, fullWidth, rounded, elevated }),
+          className,
+        )}
         ref={ref}
         type={type}
         disabled={isLoading || props.disabled}
@@ -178,9 +182,17 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(
         aria-label={accessibleLabel}
         {...props}
       >
-        {iconContent && <span className={cn("flex items-center justify-center", children ? "mr-2" : "")}>{iconContent}</span>}
+        {iconContent && (
+          <span className={cn('flex items-center justify-center', children ? 'mr-2' : '')}>
+            {iconContent}
+          </span>
+        )}
         {children}
-        {rightIcon && !isLoading && <span className={cn("flex items-center justify-center", children ? "ml-2" : "")}>{rightIcon}</span>}
+        {rightIcon && !isLoading && (
+          <span className={cn('flex items-center justify-center', children ? 'ml-2' : '')}>
+            {rightIcon}
+          </span>
+        )}
         {renderRippleEffect()}
       </button>
     );

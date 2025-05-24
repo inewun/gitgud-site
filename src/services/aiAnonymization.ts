@@ -34,7 +34,7 @@ export interface AiAnonymizationApiResponse {
 
 /**
  * Отправляет текст на API-сервер для анонимизации через AI
- * 
+ *
  * @param text Текст для анонимизации
  * @returns Результат анонимизации
  * @throws Error если запрос завершился с ошибкой
@@ -54,8 +54,8 @@ export async function aiAnonymizeText(text: string): Promise<AiAnonymizationResp
       throw new Error(errorData.error || 'Ошибка при анонимизации текста');
     }
 
-    const data = await response.json() as AiAnonymizationApiResponse;
-    
+    const data = (await response.json()) as AiAnonymizationApiResponse;
+
     if (!data.success) {
       throw new Error(data.error || 'Неизвестная ошибка при анонимизации');
     }
@@ -69,7 +69,7 @@ export async function aiAnonymizeText(text: string): Promise<AiAnonymizationResp
 
 /**
  * Проверяет доступность API-сервера анонимизации
- * 
+ *
  * @returns true если сервер доступен, false в противном случае
  */
 export async function checkAiAnonymizationServerStatus(): Promise<boolean> {
@@ -88,4 +88,4 @@ export async function checkAiAnonymizationServerStatus(): Promise<boolean> {
     console.error('Ошибка при проверке статуса сервера анонимизации:', error);
     return false;
   }
-} 
+}

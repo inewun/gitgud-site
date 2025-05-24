@@ -16,9 +16,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
       {/* Стеклянный эффект */}
       <div className="absolute inset-0 -z-5 backdrop-blur-xl" />
       {/* Основной контент */}
-      <div className="container relative z-10 py-10 md:py-16 animate-fadeInUp">
-        {children}
-      </div>
+      <div className="container relative z-10 py-10 md:py-16 animate-fadeInUp">{children}</div>
     </div>
   );
 }

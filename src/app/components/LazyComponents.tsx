@@ -6,20 +6,6 @@ import { Suspense } from 'react';
 import { cn } from '@/lib/utils';
 import { animations } from '@/styles/compositions';
 
-// Динамический импорт компонента AccessibilitySettings для уменьшения бандла
-export const DynamicAccessibilitySettings = dynamic(
-  () => import('@/shared/ui/utils/accessibility/AccessibilitySettings'),
-  {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    ssr: false, // Этот компонент не нужно рендерить на сервере
-    loading: () => (
-      <div
-        className={cn('a11y-settings-loading', animations.pulse, 'h-10 w-10 bg-muted rounded-full')}
-      ></div>
-    ),
-  },
-);
-
 // Динамический импорт тяжелого компонента визуализации данных
 export const DynamicDataVisualizer = dynamic(
   () => import('@/features/data-visualizer/ui/DataVisualizer'),
@@ -54,7 +40,6 @@ export function LazyContentWrapper({ children }: { children: React.ReactNode }) 
 
 // Создаем объект со всеми компонентами и затем экспортируем его
 const lazyComponents = {
-  DynamicAccessibilitySettings,
   DynamicDataVisualizer,
   DynamicMap,
   LazyContentWrapper,

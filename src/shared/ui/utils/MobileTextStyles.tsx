@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 export function MobileTextStyles() {
   const [mediaQueries] = useState({
     small: window.matchMedia('(max-width: 480px)'),
-    verySmall: window.matchMedia('(max-width: 360px)')
+    verySmall: window.matchMedia('(max-width: 360px)'),
   });
 
   useEffect(() => {
@@ -114,8 +114,12 @@ export function MobileTextStyles() {
     updateStyles();
 
     // Добавляем слушатели изменения размера экрана
-    const smallListener = () => updateStyles();
-    const verySmallListener = () => updateStyles();
+    const smallListener = () => {
+      updateStyles();
+    };
+    const verySmallListener = () => {
+      updateStyles();
+    };
 
     mediaQueries.small.addEventListener('change', smallListener);
     mediaQueries.verySmall.addEventListener('change', verySmallListener);
@@ -131,4 +135,4 @@ export function MobileTextStyles() {
   }, [mediaQueries]);
 
   return null;
-} 
+}

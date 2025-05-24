@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
-import { AnonymizeWidget } from '@/widgets/anonymize';
 import React from 'react';
+
+import { AnonymizeWidget } from '@/widgets/anonymize';
 
 export const metadata: Metadata = {
   title: 'Анонимизация данных | Datashield',

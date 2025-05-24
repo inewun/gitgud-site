@@ -56,7 +56,7 @@ export function MobileNavigation({
         className="flex items-center justify-center w-full h-full rounded-2xl hover:bg-primary/10 transition-colors focus-visible:ring-2 focus-visible:ring-primary shadow-lg active:scale-95"
         aria-expanded={isOpen}
         aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
-        style={{ borderRadius: "var(--radius-2xl)" }}
+        style={{ borderRadius: 'var(--radius-2xl)' }}
       >
         <span className="sr-only">{toggleButtonText}</span>
         <span aria-hidden="true">{isOpen ? closeIcon : openIcon}</span>

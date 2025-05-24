@@ -154,7 +154,10 @@ const CheckboxBase: React.FC<CheckboxProps> = ({
         {description && (
           <p
             id={descriptionId}
-            className={cn('text-muted-foreground dark:text-muted-foreground mt-1', descriptionClassName)}
+            className={cn(
+              'text-muted-foreground dark:text-muted-foreground mt-1',
+              descriptionClassName,
+            )}
           >
             {description}
           </p>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-import { Moon, Sun, Laptop } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 import { ThemeMode } from './constants';

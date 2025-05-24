@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
-import { Button } from '@/shared/ui/inputs/button/Button';
+
 import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+
 import { cn } from '@/shared/lib/utils';
+import { Button } from '@/shared/ui/inputs/button/Button';
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -39,17 +41,19 @@ export function ThemeToggle({ className }: { className?: string }) {
       size="icon"
       variant="ghost"
       className={cn(
-        "relative transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary outline-none",
-        "hover:bg-primary/10 hover:shadow-lg hover:scale-105 active:scale-95",
-        "focus-visible:ring-offset-2 focus-visible:ring-primary",
-        "rounded-xl",
-        isAnimating && "animate-theme-toggle-pulse",
-        className
+        'relative transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary outline-none',
+        'hover:bg-primary/10 hover:shadow-lg hover:scale-105 active:scale-95',
+        'focus-visible:ring-offset-2 focus-visible:ring-primary',
+        'rounded-xl',
+        isAnimating && 'animate-theme-toggle-pulse',
+        className,
       )}
       disabled={isAnimating}
       onClick={toggleTheme}
-      aria-label={resolvedTheme === 'dark' ? 'Переключить на светлую тему' : 'Переключить на темную тему'}
-      style={{ borderRadius: "var(--radius-xl)" }}
+      aria-label={
+        resolvedTheme === 'dark' ? 'Переключить на светлую тему' : 'Переключить на темную тему'
+      }
+      style={{ borderRadius: 'var(--radius-xl)' }}
     >
       {isAnimating && (
         <span className="absolute inset-0 rounded-xl bg-primary/10 animate-pulse pointer-events-none" />

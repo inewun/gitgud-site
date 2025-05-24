@@ -248,7 +248,8 @@ export const containers = {
   card: 'card border rounded-lg p-6 bg-card',
   panel: 'border rounded-lg shadow-sm',
   resultContainer: 'p-4 bg-subtle dark:bg-card rounded-md',
-  resultContainerWithBorder: 'p-4 bg-subtle dark:bg-card rounded-md border border-border dark:border-border',
+  resultContainerWithBorder:
+    'p-4 bg-subtle dark:bg-card rounded-md border border-border dark:border-border',
 };
 
 /**

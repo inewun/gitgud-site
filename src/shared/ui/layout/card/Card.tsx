@@ -112,7 +112,7 @@ CardBase.displayName = 'Card';
 /**
  * Компонент Карточка (Card)
  * Используется как контейнер для группировки связанной информации и действий
- * 
+ *
  * @example
  * <Card shadow="md" hover="lift" animation="fadeIn">
  *   <CardHeader>

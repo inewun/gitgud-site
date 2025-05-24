@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import {
@@ -13,23 +13,18 @@ import {
   BookOpen,
   Code,
   Terminal,
-  Key,
   Search,
   Menu,
   X,
   FileText,
-  CodeSquare,
   HelpCircle,
-  PanelLeft,
   Github,
   Zap,
   Lock,
-  LucideIcon,
 } from 'lucide-react';
 
-import { Button } from '@/shared/ui/inputs/button/Button';
-import { Card, CardContent } from '@/shared/ui/layout/card';
 import { TextInputField } from '@/shared/ui/inputs/text-field';
+import { Card, CardContent } from '@/shared/ui/layout/card';
 
 // Структура документации
 const sections = [
@@ -222,14 +217,17 @@ export default function DocsPage() {
         <div className="bg-card border border-border rounded-2xl shadow-sm p-6 mb-8">
           <h2 className="text-2xl font-bold mb-4">Установка</h2>
           <p className="mb-4 text-muted-foreground">
-            Для начала работы с инструментом анонимизации, следуйте инструкциям ниже. Система работает на Node.js и использует пакетный менеджер pnpm.
+            Для начала работы с инструментом анонимизации, следуйте инструкциям ниже. Система
+            работает на Node.js и использует пакетный менеджер pnpm.
           </p>
           <p className="mb-6">
             Убедитесь, что у вас установлен Node.js версии 18 или выше и пакетный менеджер pnpm.
           </p>
           <div className="relative bg-background border border-muted/30 rounded-xl p-4 shadow-sm overflow-x-auto">
             <button
-              onClick={() => copyToClipboard(codeExamples['installation'], 'installation')}
+              onClick={() => {
+                copyToClipboard(codeExamples['installation'], 'installation');
+              }}
               className="absolute top-3 right-3 p-2 rounded-md bg-card border border-border hover:bg-primary/10 transition-colors icon-animated"
               aria-label="Скопировать код"
             >
@@ -239,7 +237,9 @@ export default function DocsPage() {
                 <Copy className="w-5 h-5 icon-animated" />
               )}
             </button>
-            <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{codeExamples['installation']}</pre>
+            <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">
+              {codeExamples['installation']}
+            </pre>
           </div>
         </div>
       ),
@@ -282,12 +282,11 @@ export default function DocsPage() {
           <h2 className="text-2xl font-bold mb-4">Типы анонимизации</h2>
           <div className="bg-emerald-50 dark:bg-green-950 rounded-lg p-4 mb-6">
             <p className="text-muted dark:text-muted-foreground">
-              Система поддерживает различные типы анонимизации данных, которые можно использовать по отдельности или комбинировать.
+              Система поддерживает различные типы анонимизации данных, которые можно использовать по
+              отдельности или комбинировать.
             </p>
           </div>
-          <p className="mb-4">
-            Библиотека позволяет анонимизировать следующие типы данных:
-          </p>
+          <p className="mb-4">Библиотека позволяет анонимизировать следующие типы данных:</p>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <FeatureItem>ФИО и имена</FeatureItem>
             <FeatureItem>Email адреса</FeatureItem>
@@ -305,7 +304,8 @@ export default function DocsPage() {
           <h2 className="text-2xl font-bold mb-4">Безопасность данных</h2>
           <div className="bg-emerald-50 dark:bg-green-950 rounded-lg p-4 mb-6">
             <p className="text-muted dark:text-muted-foreground">
-              Наш инструмент обеспечивает высокий уровень безопасности при обработке персональных данных.
+              Наш инструмент обеспечивает высокий уровень безопасности при обработке персональных
+              данных.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
@@ -351,11 +351,12 @@ export default function DocsPage() {
             </p>
           </div>
           <p className="mb-6">
-            Основная функция <code className="text-primary font-mono">anonymize()</code> принимает текст и объект с опциями анонимизации.
+            Основная функция <code className="text-primary font-mono">anonymize()</code> принимает
+            текст и объект с опциями анонимизации.
           </p>
         </div>
       ),
-      'configuration': (
+      configuration: (
         <div>
           <h2 className="text-2xl font-bold mb-4">Конфигурация</h2>
           <div className="bg-violet-50 dark:bg-violet-950 rounded-lg p-4 mb-6">
@@ -368,18 +369,21 @@ export default function DocsPage() {
           </p>
           <ul className="list-disc pl-5 mb-6 space-y-2">
             <li>
-              <code className="text-primary font-mono">replacementMap</code> - Карта замены для конкретных типов данных
+              <code className="text-primary font-mono">replacementMap</code> - Карта замены для
+              конкретных типов данных
             </li>
             <li>
-              <code className="text-primary font-mono">sensitivity</code> - Уровень чувствительности алгоритмов поиска (0-1)
+              <code className="text-primary font-mono">sensitivity</code> - Уровень чувствительности
+              алгоритмов поиска (0-1)
             </li>
             <li>
-              <code className="text-primary font-mono">language</code> - Основной язык текста для оптимизации распознавания
+              <code className="text-primary font-mono">language</code> - Основной язык текста для
+              оптимизации распознавания
             </li>
           </ul>
         </div>
       ),
-      'examples': (
+      examples: (
         <div>
           <h2 className="text-2xl font-bold mb-4">Примеры</h2>
           <div className="bg-amber-50 dark:bg-orange-950 rounded-lg p-4 mb-6">
@@ -387,9 +391,7 @@ export default function DocsPage() {
               Примеры использования библиотеки в различных сценариях.
             </p>
           </div>
-          <p className="mb-4">
-            Ниже приведены примеры для различных задач анонимизации:
-          </p>
+          <p className="mb-4">Ниже приведены примеры для различных задач анонимизации:</p>
 
           <div className="space-y-4 mb-6">
             <Card className="bg-background/60 backdrop-blur-sm border border-muted overflow-hidden">
@@ -487,9 +489,10 @@ const result = anonymize(text, {
         <Link
           href={`#${parentSectionId}`}
           className="hover:text-foreground transition-colors"
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
-            const firstSubSectionId = sections.find(s => s.id === parentSectionId)?.subSections[0].id;
+            const firstSubSectionId = sections.find(s => s.id === parentSectionId)?.subSections[0]
+              .id;
             if (firstSubSectionId) setActiveSection(firstSubSectionId);
           }}
         >
@@ -509,7 +512,9 @@ const result = anonymize(text, {
           <h1 className="text-xl font-extrabold tracking-tight text-foreground">Документация</h1>
           <button
             className="p-2 rounded-xl bg-muted/70 hover:bg-muted transition-colors shadow-md"
-            onClick={() => setMobileNavOpen(!mobileNavOpen)}
+            onClick={() => {
+              setMobileNavOpen(!mobileNavOpen);
+            }}
             aria-label={mobileNavOpen ? 'Закрыть меню' : 'Открыть меню'}
           >
             {mobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -526,7 +531,9 @@ const result = anonymize(text, {
                 <h2 className="text-lg font-bold">Меню</h2>
                 <button
                   className="p-2 rounded-xl bg-muted/70 hover:bg-muted transition-colors shadow-md"
-                  onClick={() => setMobileNavOpen(false)}
+                  onClick={() => {
+                    setMobileNavOpen(false);
+                  }}
                   aria-label="Закрыть меню"
                 >
                   <X className="w-5 h-5" />
@@ -540,7 +547,9 @@ const result = anonymize(text, {
                   placeholder="Поиск..."
                   className="w-full pl-10 bg-background border-muted/70 focus:border-primary rounded-xl shadow-none focus:shadow-md transition-all duration-200"
                   value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
+                  onChange={e => {
+                    setSearchTerm(e.target.value);
+                  }}
                 />
               </div>
               {searchResults.length > 0 ? (
@@ -551,12 +560,16 @@ const result = anonymize(text, {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                   >
-                    <h3 className="text-xs font-medium text-muted-foreground mb-2">Результаты поиска</h3>
+                    <h3 className="text-xs font-medium text-muted-foreground mb-2">
+                      Результаты поиска
+                    </h3>
                     {searchResults.map(result => (
                       <motion.button
                         key={result.id}
                         className="flex items-center w-full px-3 py-2 text-left rounded-xl hover:bg-primary/10 transition-all duration-200 text-sm font-medium shadow-sm"
-                        onClick={() => handleSectionChange(result.id)}
+                        onClick={() => {
+                          handleSectionChange(result.id);
+                        }}
                         initial={{ opacity: 0, y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
                       >
@@ -568,14 +581,16 @@ const result = anonymize(text, {
                     ))}
                   </motion.div>
                 </AnimatePresence>
-              ) :
+              ) : (
                 <div className="space-y-4">
                   {sections.map(section => {
                     const isActiveGroup = getActiveGroup() === section.id;
                     const SectionIcon = section.icon;
                     return (
                       <div key={section.id} id={section.id} className="mb-4">
-                        <div className={`flex items-center py-1 mb-2 font-bold text-base ${isActiveGroup ? 'text-primary' : 'text-foreground/80'}`}>
+                        <div
+                          className={`flex items-center py-1 mb-2 font-bold text-base ${isActiveGroup ? 'text-primary' : 'text-foreground/80'}`}
+                        >
                           <SectionIcon className="w-4 h-4 mr-2" />
                           <span>{section.title}</span>
                         </div>
@@ -583,11 +598,15 @@ const result = anonymize(text, {
                           {section.subSections.map(subSection => (
                             <motion.button
                               key={subSection.id}
-                              className={`flex items-center w-full text-left px-3 py-2 text-sm rounded-xl transition-all duration-200 shadow-sm ${activeSection === subSection.id
-                                ? 'bg-primary/10 text-primary font-bold scale-[1.03]'
-                                : 'hover:bg-muted/40 text-muted-foreground hover:text-foreground'}
+                              className={`flex items-center w-full text-left px-3 py-2 text-sm rounded-xl transition-all duration-200 shadow-sm ${
+                                activeSection === subSection.id
+                                  ? 'bg-primary/10 text-primary font-bold scale-[1.03]'
+                                  : 'hover:bg-muted/40 text-muted-foreground hover:text-foreground'
+                              }
                                 focus-visible:ring-2 focus-visible:ring-primary outline-none`}
-                              onClick={() => handleSectionChange(subSection.id)}
+                              onClick={() => {
+                                handleSectionChange(subSection.id);
+                              }}
                               whileTap={{ scale: 0.98 }}
                               style={{ borderRadius: 'var(--radius-xl)' }}
                             >
@@ -599,7 +618,7 @@ const result = anonymize(text, {
                     );
                   })}
                 </div>
-              }
+              )}
               {/* Дополнительные ресурсы */}
               <div className="hidden md:block mt-4 pt-4 border-t border-muted/60">
                 <h3 className="text-xs font-medium text-muted-foreground mb-2 flex items-center">
@@ -607,14 +626,28 @@ const result = anonymize(text, {
                   Дополнительно
                 </h3>
                 <div className="space-y-2">
-                  <a href="https://github.com/fred-yagofarov1314/anonymize-tool" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors">
-                    <Github className="w-4 h-4" />GitHub
+                  <a
+                    href="https://github.com/fred-yagofarov1314/anonymize-tool"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <Github className="w-4 h-4" />
+                    GitHub
                   </a>
-                  <a href="/docs/changelog" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors">
-                    <FileText className="w-4 h-4" />Changelog
+                  <a
+                    href="/docs/changelog"
+                    className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <FileText className="w-4 h-4" />
+                    Changelog
                   </a>
-                  <a href="/docs/faq" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors">
-                    <HelpCircle className="w-4 h-4" />FAQ
+                  <a
+                    href="/docs/faq"
+                    className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <HelpCircle className="w-4 h-4" />
+                    FAQ
                   </a>
                 </div>
               </div>
@@ -622,10 +655,11 @@ const result = anonymize(text, {
           </aside>
           {/* Основное содержимое */}
           <main className="md:col-span-9 xl:col-span-10">
-            <div className="mb-4 animate-fade-in">
-              {renderBreadcrumbs()}
-            </div>
-            <article className="bg-background/90 border border-muted/60 rounded-2xl p-6 shadow-xl mb-6 animate-fadeInUp" style={{ borderRadius: 'var(--radius-xl)' }}>
+            <div className="mb-4 animate-fade-in">{renderBreadcrumbs()}</div>
+            <article
+              className="bg-background/90 border border-muted/60 rounded-2xl p-6 shadow-xl mb-6 animate-fadeInUp"
+              style={{ borderRadius: 'var(--radius-xl)' }}
+            >
               {renderContent()}
               {/* Код с возможностью копирования */}
               {codeExamples[activeSection] && (
@@ -681,13 +715,7 @@ function CheckItem() {
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M5 13l4 4L19 7"
-      />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
     </svg>
   );
 }
-

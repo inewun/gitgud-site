@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
-import { HeroSection } from '@/widgets/home/ui/HeroSection';
-import { FeaturesSection } from '@/widgets/home/ui/FeaturesSection';
-import { UseCasesSection } from '@/widgets/home/ui/UseCasesSection';
+
 import { CtaSection } from '@/widgets/home/ui/CtaSection';
+import { FeaturesSection } from '@/widgets/home/ui/FeaturesSection';
+import { HeroSection } from '@/widgets/home/ui/HeroSection';
+import { UseCasesSection } from '@/widgets/home/ui/UseCasesSection';
 
 export const metadata: Metadata = {
   title: 'Главная | Datashield',
