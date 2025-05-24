@@ -403,7 +403,6 @@ export function AiAnonymizeForm() {
         )}
 
         <div className="flex-1 overflow-auto bg-background/80 rounded-2xl px-6 py-4 mb-4 border border-muted/30 shadow-md min-h-[260px]">
-          {/* Полностью новый блок с фиксированными стилями для текста */}
           <div
             style={{
               width: '100%',
