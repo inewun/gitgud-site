@@ -28,8 +28,8 @@ export const FeaturesSection: React.FC = () => (
           Современные технологии анонимизации
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto text-lg md:text-xl">
-          Передовые алгоритмы и\u00A0максимальная защита конфиденциальных данных — всё
-          для\u00A0вашего спокойствия.
+          Передовые алгоритмы и максимальная защита конфиденциальных данных — всё
+          для вашего спокойствия.
         </p>
       </div>
       <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-border/40 dark:divide-white/10 bg-white/80 dark:bg-[#181C23] rounded-2xl shadow-sm overflow-hidden">
