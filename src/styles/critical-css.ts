@@ -1,8 +1,3 @@
-/**
- * Критический CSS для быстрой первоначальной отрисовки
- * Включает только минимально необходимые стили для верхней части страницы (above the fold)
- */
-const criticalCSS = `
 /* Базовые переменные */
 :root {
   --primary: 79 70 229;
@@ -10,14 +5,21 @@ const criticalCSS = `
   --foreground: 17 24 39;
   --muted: 107 114 128;
   --subtle: 249 250 251;
+  --card: 255 255 255;
+  --card-foreground: 17 24 39;
+  --border: 229 231 235;
 }
 
-.dark {
+.dark,
+[data-theme='dark'] {
   --background: 15 23 42;
   --foreground: 248 250 252;
   --muted: 156 163 175;
   --subtle: 30 41 59;
   --primary: 99 102 241;
+  --card: 30 41 59;
+  --card-foreground: 248 250 252;
+  --border: 51 65 85;
 }
 
 /* Базовая типографика и цвета */
@@ -26,7 +28,19 @@ body {
   color: rgb(var(--foreground));
   font-family: var(--font-inter, sans-serif);
   margin: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Явное задание цветов для темной темы без использования переменных */
+.dark body,
+[data-theme='dark'] body {
+  background-color: rgb(15 23 42);
+  color: rgb(248 250 252);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Стили для шапки */
@@ -93,9 +107,11 @@ body {
 
 /* Основные элементы загрузки */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.5;
   }
+
   50% {
     opacity: 0.8;
   }
@@ -106,6 +122,36 @@ body {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   border-radius: 0.375rem;
 }
-`;
 
-export default criticalCSS;
+/* Критические стили для feature-card */
+.feature-card {
+  background-color: rgb(var(--card));
+  color: rgb(var(--card-foreground));
+  border: 1px solid rgb(var(--border));
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.dark .feature-card,
+[data-theme='dark'] .feature-card {
+  background-color: rgb(30 41 59);
+  color: rgb(248 250 252);
+  border-color: rgb(51 65 85);
+}
+
+.feature-icon {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: rgba(var(--primary), 0.1);
+  color: rgb(var(--primary));
+  border-radius: 9999px;
+  width: fit-content;
+}
+
+.dark .feature-icon,
+[data-theme='dark'] .feature-icon {
+  background-color: rgba(99, 102, 241, 0.1);
+  color: rgb(99, 102, 241);
+}
